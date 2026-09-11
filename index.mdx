@@ -3,18 +3,2070 @@ title: "Introduction"
 description: "Welcome to your project"
 ---
 
-Write a short description of your product here. What it does, who it's for, and what they can accomplish with it.
+> 😀 This course was written and shared for free by the engineers of the Seeed robotics tngs to Seeed Studio (Shenzhen) Co., Ltd. We will protect our rights against any unauthorized copyright infringement.
 
-<Tip>
-  Ready to make this your own? Start by editing this page. Update your `docs.json` file to customize your site. Then fill out the [Quickstart](/quickstart) page.
-</Tip>
+> 🤖 **Cross-disciplinary robotics learners, new graduate students building technical reserves, job seekers expanding their knowledge, and makers wanting to accelerate their own projects — no need to scavenge materials everywhere! This permanently free course, carefully crafted by the SeeedStudio AI Robotics team, pairs with the 100% open-source, commercially usable, and reproducible reBot robotic arm. Finish this course and you'll be the next expert! This course is completely free. If you'd like to encourage our efforts, please star our open-source robotic arm on GitHub:** [**https://github.com/Seeed-Projects/reBot-DevArm/**](https://github.com/Seeed-Projects/reBot-DevArm/) **⭐, and help more people discover this course!**<br />**If you are already an expert, you can directly reference our wiki to start running examples:[https://wiki.seeedstudio.com/robotics_page/](https://wiki.seeedstudio.com/robotics_page/)**<br />Hardware drawings and BOM downloads for the robotic arm can be found on our GitHub: [**https://github.com/Seeed-Projects/reBot-DevArm/**](https://github.com/Seeed-Projects/reBot-DevArm/).
 
-<Card title="Quickstart" icon="rocket" href="/quickstart">
-  This card links to the quickstart page in your project.
-</Card>
-<Card title="Components" icon="puzzle-piece" href="https://mintlify.com/docs/components">
-  Add cards, callouts, steps, tabs, and more to design and structure your pages.
-</Card>
-<Card title="Settings" icon="gear" href="https://mintlify.com/docs/organize/settings">
-  Set your site name, branding, and navigation in the `docs.json` file.
-</Card>
+> 💡 This course does not delve deeply into mathematical functions or low-level principles. It uses popular science and examples to help you quickly understand low-level control, traditional algorithms, and VLA algorithms in robotic arm embodied intelligence. Through a combination of theory and practice, you will comprehensively learn cutting-edge knowledge of robotic arms. If you want to go deeper into each field, many excellent platforms and instructors offer more advanced course content. Feel free to pursue targeted advanced study.
+
+# Community Groups:
+
+Facebook:
+
+![](https://feishu.cn/file/AASPbtHs9oNLYEx75RHcB5vYnDb)
+
+Discord:
+
+![](https://feishu.cn/file/Tj1abxdCZo9SKUxcPVhcMaf7nae)
+
+# Course Design Principles
+
+This course uses the reBot Arm B601-DM and B601-RS as practical platforms, combining robotic arm theory, robotics learning theory, and real hardware practice. The course outline is as follows:
+
+![](https://feishu.cn/file/Ryb0bwMLDowiQGxe2wXc2tnYnZe)
+
+# Stage 1: Basic Concepts and Equipment Preparation
+
+## Chapter 1 [Theory]: Getting to Know Robots and Embodied Intelligence
+
+### 1.1 Learning Objectives
+
+After completing this chapter, you should be able to:
+
+1. Explain the basic concepts of robots and robotic arms.
+2. Identify joints, links, degrees of freedom, and end effectors in a robotic arm.
+3. Understand perception, decision-making, and control in a robot system.
+4. Distinguish between industrial robotic arms and embodied intelligence robotic arms.
+5. Distinguish between traditional program control, imitation learning, and VLA.
+6. Describe the composition of a complete embodied intelligence robotic arm system.
+7. Understand the role of reBot Arm in the entire embodied intelligence system.
+
+---
+
+### 1.2 What Is a Robot?
+
+A robot is not merely a machine that looks like a human. From a functional perspective, a robot is a system that can:
+
+- Acquire information about itself or its environment;
+- Perform computation or decision-making based on goals;
+- Change its own state or the surrounding environment through actuators.
+
+A robot system can typically be abstracted as:
+
+![](https://feishu.cn/file/AvZ8btxymoDpxnxycHNcAumVnib)
+
+For example, a desktop grasping robot needs to complete the following process:
+
+![](https://feishu.cn/file/T9MObY4VYorusVxM0QucXfJJnNK)
+
+Therefore, a robot not only needs to "be able to move" but also must be able to form a continuously running closed loop.
+
+- The Difference Between Robots and Ordinary Machines
+
+Ordinary machines often work in a fixed manner. For example:
+
+- An electric fan keeps rotating after being powered on;
+- A conveyor belt runs at a fixed speed;
+- An ordinary motor rotates after receiving voltage.
+
+Robots, on the other hand, typically have stronger state perception, program control, and task execution capabilities. For example, a robotic arm can control multiple joints to move to different postures based on different target positions.
+
+---
+
+### 1.3 What Is a Robotic Arm?
+
+A robotic arm is a robot mechanism composed of multiple joints and links. Through the coordinated motion of multiple joints, it brings the end effector to a specified position and posture, and completes tasks such as grasping, handling, assembly, polishing, and welding.
+
+A robotic arm can be simply understood as:
+
+![](https://feishu.cn/file/KGX9bDGCbonrYrxRPdVc04wanUd)
+
+Robotic arms share some similarities with human arms. However, a robotic arm does not necessarily mimic human anatomy. Its number of joints, arrangement, and workspace are designed according to task requirements.
+
+---
+
+- What Are Degrees of Freedom
+
+Degrees of freedom are commonly denoted as DOF (Degree of Freedom). DOF describes the number of independent directions in which a mechanical system can move.
+
+In three-dimensional space, the complete pose of a rigid body includes:
+
+- Translation along the X, Y, and Z axes;
+- Rotation about the X, Y, and Z axes.
+
+Therefore, an object in 3D space has at most 6 degrees of freedom.
+
+![](https://feishu.cn/file/VHyub4flXoXygjxu9bLciOxZnmh)
+
+A six-degree-of-freedom robotic arm can typically control the position and posture of the end effector in 3D space.
+
+It should be noted that:
+
+> Six degrees of freedom does not mean the robotic arm has only six motors, nor does it mean that all positions and postures can necessarily be reached.
+
+A robotic arm is also affected by factors such as link lengths, joint limits, singularities, and collisions.
+
+---
+
+### 1.4 Traditional Control, Imitation Learning, and VLA
+
+A robotic arm can obtain actions through different methods.
+
+#### Traditional Program Control
+
+![](https://feishu.cn/file/ZBpbbP6MJoGCd9xWuIPc2u2XnSf)
+
+Suitable for fixed positions, fixed workflows, and repetitive tasks.
+
+#### Imitation Learning
+
+A human first teleoperates the robotic arm to complete a task, and then a model learns from the demonstration data.
+
+![](https://feishu.cn/file/UqaEblyhZox1fKxq5X9cMeDOnBb)
+
+Suitable for grasping, organizing, and continuous operation tasks.
+
+#### VLA
+
+VLA uses visual, language, and action information to enable the robotic arm to complete tasks based on natural language.
+
+![](https://feishu.cn/file/Htceb8KXcoUcikxtPz4cUyx8n6g)
+
+For example:
+
+> Put the red block on the left into the box.
+
+### 1.5 The Role of reBot Arm in the Course
+
+reBot Arm is the unified practical platform for the entire course.
+
+Later, we will use it to complete:
+
+![](https://feishu.cn/file/BuBtbcQ9NokMxrx2zoIculOAnWg)
+
+---
+
+## Chapter 2 [Theory and Practice]: Getting to Know Robotic Arm Hardware and the Open-Source Project reBot Arm
+
+### 2 Getting to Know Robotic Arm Hardware and the Open-Source Project reBot Arm
+
+#### 2.1 What Is reBot Arm
+
+![](https://feishu.cn/file/W7a2bZ1Q5oMUeTxu0N6cOv2Jn6f)
+
+The reBot Arm B601 is a fully open-source robotic arm released by Seeedstudio, from structural hardware to software. It is an open-source desktop robotic arm for robotics education, algorithm development, and embodied intelligence research. It adopts a modular mechanical structure, provides approximately 750 mm reach and 6+1 degrees of freedom, connects to a computer via USB-CAN, and can be used for experiments such as robotic arm control, robot vision, imitation learning, and VLA.
+
+reBot Arm is not just robotic arm hardware; it also provides complete development materials from low-level control to high-level AI applications. From this open-source project, you can learn from scratch:
+
+- Robotic arm design and assembly (DM product detail video)
+- Robotic arm calibration and joint control;
+- Forward kinematics, inverse kinematics, and trajectory planning;
+- Pinocchio dynamics analysis and MeshCat visualization;
+- Leader–Follower master-slave teleoperation;
+- LeRobot data collection, training, and evaluation; Hugging Face web page recording
+- RGB-D visual recognition and autonomous grasping;
+- Isaac Sim
+- ROS2 integration and secondary development;
+- Adaptation of robot policy models such as ACT and GR00T.
+
+Its main goal is to allow users to learn and validate robotic arm and embodied intelligence algorithms using relatively low-cost, open, and modifiable hardware.
+
+---
+
+#### 2.2 Why Design Two Versions: DM and RS
+
+The reBot Arm B601 offers:
+
+- **B601-DM**
+- **B601-RS**
+
+Both versions use a similar mechanical structure and upper-layer software system, but use different types of joint motors.
+
+![](https://feishu.cn/file/BjBjbtijvoPd5AxORg3c1NUjnYd)
+
+#### **2.3 Parameter Comparison Between reBot Arm DM and reBot Arm RS**
+
+> [内嵌飞书表格，请到原文档查看]
+
+#### 2.4 Open-Source Hardware and Open-Source Software
+
+Both the hardware and software materials of reBot Arm are open to the public.
+
+GitHub repository: [https://github.com/Seeed-Projects/reBot-DevArm/](https://github.com/Seeed-Projects/reBot-DevArm/)
+
+![](https://feishu.cn/file/ERhfbTVNqoCbIexoM6AcaCaOn5f)
+
+---
+
+## Chapter 3 [Theory and Practice]: Hardware Selection for Subsequent Courses
+
+### 3.1 Hardware Selection for Subsequent Courses
+
+This section introduces the hands-on hardware list required for each chapter. Students can purchase according to their own situation.
+
+Throughout the course, you will need to use your own computer as the algorithm deployment device. It can be Ubuntu, Mac, or even a Raspberry Pi and Jetson. However, remember **not to use Windows, WSL, or a virtual machine Ubuntu**, otherwise you will spend a great deal of effort solving bugs and reduce your learning efficiency.
+
+- Main Control Unit:
+
+All chapters require a main control device as your code deployment endpoint. Below are our recommended devices and systems:
+
+| Required Hardware | Link | Quantity | Notes | Chapters Covered |
+| --- | --- | --- | --- | --- |
+| Desktop or Laptop |  | 1 | Ubuntu 22.04 native system, GTX 4080 or above with 12GB+ VRAM, 16GB+ RAM | All chapters |
+| reComputer Robotics J4012 | [Bazaar](https://www.seeedstudio.com/reComputer-Robotics-J3011-with-GMSL-extension-board-p-6538.html) | 1 |  | Stage 2, |
+| Stage 3, |  |  |  |  |
+| Stage 5, |  |  |  |  |
+| Stage 6, |  |  |  |  |
+| Stage 7, |  |  |  |  |
+| NVIDIA Jetson AGX Thor 128G | [bazaar](https://www.seeedstudio.com/reComputer-Classic-J5012-p-6881.html) | 1 |  | Stage 2, |
+| Stage 3, |  |  |  |  |
+| Stage 4, |  |  |  |  |
+| Stage 5, |  |  |  |  |
+| Stage 6, |  |  |  |  |
+| Stage 7, |  |  |  |  |
+
+- Stage 2: Robotic Arm Hardware and Basic Control
+
+| Required Hardware | Link | Quantity | Notes |
+| --- | --- | --- | --- |
+| reBot Arm B601 DM/RS | [reBot DM Robotic Arm with Power Supply and Wood Clamp](https://www.seeedstudio.com/reBot-Arm-B601-DM-Assembled-Kit-with-Power-Supply-Bundle.html) [reBot RS Robotic Arm with Power Supply and Wood Clamp](https://www.seeedstudio.com/reBot-Arm-B601-RS-Bundle-p-6898.html) | 1 | - Choose one of DM/RS- To reduce purchase pressure, you can also buy the parts-only version. Seeed also provides very detailed, step-by-step assembly tutorials.- Because the power supply shipped by Seeed uses fire-resistant materials, the price is somewhat higher. You can also purchase genuine Mean Well (Taiwan) power supplies on your own. |
+
+- Stage 3: Imitation Learning and LeRobot
+
+| Required Hardware | Link | Quantity | Notes |
+| --- | --- | --- | --- |
+| reBot Arm B601 DM/RS | [reBot DM Robotic Arm with Power Supply and Wood Clamp](https://www.seeedstudio.com/reBot-Arm-B601-DM-Assembled-Kit-with-Power-Supply-Bundle.html) [reBot RS Robotic Arm with Power Supply and Wood Clamp](https://www.seeedstudio.com/reBot-Arm-B601-RS-Bundle-p-6898.html) | 1 | - Choose one of DM/RS- To reduce purchase pressure, you can also buy the parts-only version. Seeed also provides very detailed, step-by-step assembly tutorials.- Because the power supply shipped by Seeed uses fire-resistant materials, the price is somewhat higher. You can also purchase genuine Mean Well (Taiwan) power supplies on your own. |
+| reBot Arm 102 Leader Arm | [reBot Arm 102 Leader Arm](https://www.seeedstudio.com/Star-Arm-102-p-6765.html) [Power for leader arm](https://www.seeedstudio.com/AC-DC-Power-Adapter-DC5521-Male-12V-2A-1500mm-p-6839.html) | 1 |  |
+| 720P Monocular Wrist Camera | [UVC Monocular Camera](https://www.seeedstudio.com/ET-S231-90-USB-Camera-p-6684.html) | 2 |  |
+| Wrist Camera Mount | [附件：UVC32_mount.step] | 1 | You need to print this yourself. If you don't have a printer, you can contact customer service to get one for free. |
+| Hikvision Camera Overhead Mount | [Single Mount + Universal Ring + Live Overhead; Universal](https://item.taobao.com/item.htm?spm=tbpc.boughtlist.suborder_itemtitle.1.49cb2e8dt6KH1K&id=797067194359&mi_id=0000qWvzUV0CAietxWIGsLRo68nEdNUwWmvnKFhXbqbu1Ac) | 1 |  |
+
+- Stage 4: VLA and Isaac Groot
+
+| Required Hardware | Link | Quantity | Notes |
+| --- | --- | --- | --- |
+| reBot Arm B601 DM/RS | [reBot DM Robotic Arm with Power Supply and Wood Clamp](https://www.seeedstudio.com/reBot-Arm-B601-DM-Assembled-Kit-with-Power-Supply-Bundle.html) [reBot RS Robotic Arm with Power Supply and Wood Clamp](https://www.seeedstudio.com/reBot-Arm-B601-RS-Bundle-p-6898.html) | 1 | - Choose one of DM/RS- To reduce purchase pressure, you can also buy the parts-only version. Seeed also provides very detailed, step-by-step assembly tutorials.- Because the power supply shipped by Seeed uses fire-resistant materials, the price is somewhat higher. You can also purchase genuine Mean Well (Taiwan) power supplies on your own. |
+| reBot Arm 102 Leader Arm | [reBot Arm 102 Leader Arm](https://www.seeedstudio.com/Star-Arm-102-p-6765.html) [Power for leader arm](https://www.seeedstudio.com/AC-DC-Power-Adapter-DC5521-Male-12V-2A-1500mm-p-6839.html) | 1 |  |
+| 720P Monocular Wrist Camera | [UVC Monocular Camera](https://www.seeedstudio.com/ET-S231-90-USB-Camera-p-6684.html) | 2 |  |
+| Wrist Camera Mount | [附件：UVC32_mount.step] | 1 | You need to print this yourself. If you don't have a printer, you can contact customer service to get one for free. |
+| Hikvision Camera Overhead Mount | [Single Mount + Universal Ring + Live Overhead; Universal](https://item.taobao.com/item.htm?spm=tbpc.boughtlist.suborder_itemtitle.1.49cb2e8dt6KH1K&id=797067194359&mi_id=0000qWvzUV0CAietxWIGsLRo68nEdNUwWmvnKFhXbqbu1Ac) | 1 |  |
+| Hikvision Camera Overhead Mount | [Single Mount + Universal Ring + Live Overhead; Universal](https://item.taobao.com/item.htm?spm=tbpc.boughtlist.suborder_itemtitle.1.49cb2e8dt6KH1K&id=797067194359&mi_id=0000qWvzUV0CAietxWIGsLRo68nEdNUwWmvnKFhXbqbu1Ac) | 1 |  |
+
+- Stage 5: Robotic Arm Mathematics and Motion Control
+
+| Required Hardware | Link | Quantity | Notes |
+| --- | --- | --- | --- |
+| reBot Arm B601 DM/RS | [reBot DM Robotic Arm with Power Supply and Wood Clamp](https://www.seeedstudio.com/reBot-Arm-B601-DM-Assembled-Kit-with-Power-Supply-Bundle.html) [reBot RS Robotic Arm with Power Supply and Wood Clamp](https://www.seeedstudio.com/reBot-Arm-B601-RS-Bundle-p-6898.html) | 1 | - Choose one of DM/RS- To reduce purchase pressure, you can also buy the parts-only version. Seeed also provides very detailed, step-by-step assembly tutorials.- Because the power supply shipped by Seeed uses fire-resistant materials, the price is somewhat higher. You can also purchase genuine Mean Well (Taiwan) power supplies on your own. |
+
+- Stage 6: Robotic Arm Vision and Autonomous Grasping
+
+| Required Hardware | Link | Quantity | Notes |
+| --- | --- | --- | --- |
+| reBot Arm B601 DM/RS | [reBot DM Robotic Arm with Power Supply and Wood Clamp](https://www.seeedstudio.com/reBot-Arm-B601-DM-Assembled-Kit-with-Power-Supply-Bundle.html) [reBot RS Robotic Arm with Power Supply and Wood Clamp](https://www.seeedstudio.com/reBot-Arm-B601-RS-Bundle-p-6898.html) | 1 | - Choose one of DM/RS- To reduce purchase pressure, you can also buy the parts-only version. Seeed also provides very detailed, step-by-step assembly tutorials.- Because the power supply shipped by Seeed uses fire-resistant materials, the price is somewhat higher. You can also purchase genuine Mean Well (Taiwan) power supplies on your own. |
+| Realsense 435i or Orbbec Gemini2 Depth Camera or Realsense 405 Stereo Camera | [https://www.seeedstudio.com/Intel-RealSense-Depth-Camera-D435i-p-4423.html](https://www.seeedstudio.com/Intel-RealSense-Depth-Camera-D435i-p-4423.html) |  |  |
+| Camera Wrist Mount | \[附件：D435_Gemini2_Mount.step\][附件：D405_305_Mount.step] |  | You need to print this yourself. If you don't have a printer, you can contact customer service to get one for free. |
+
+- Stage 7: ROS2 and Robot System Integration
+
+| Required Hardware | Link | Quantity | Notes |
+| --- | --- | --- | --- |
+| reBot Arm B601 DM/RS | [reBot DM Robotic Arm with Power Supply and Wood Clamp](https://www.seeedstudio.com/reBot-Arm-B601-DM-Assembled-Kit-with-Power-Supply-Bundle.html) [reBot RS Robotic Arm with Power Supply and Wood Clamp](https://www.seeedstudio.com/reBot-Arm-B601-RS-Bundle-p-6898.html) | 1 | - Choose one of DM/RS- To reduce purchase pressure, you can also buy the parts-only version. Seeed also provides very detailed, step-by-step assembly tutorials.- Because the power supply shipped by Seeed uses fire-resistant materials, the price is somewhat higher. You can also purchase genuine Mean Well (Taiwan) power supplies on your own. |
+
+- Stage 8: MuJoCo and Isaac Sim Robotic Arm Simulation
+  - A computer with 32GB RAM, a 4080 or above GPU, and Ubuntu 22.04 is required
+  - The robotic arm is used for virtual reality synchronization
+
+| Required Hardware | Link | Quantity | Notes |
+| --- | --- | --- | --- |
+| reBot Arm B601 DM/RS | [reBot DM Robotic Arm with Power Supply and Wood Clamp](https://www.seeedstudio.com/reBot-Arm-B601-DM-Assembled-Kit-with-Power-Supply-Bundle.html) [reBot RS Robotic Arm with Power Supply and Wood Clamp](https://www.seeedstudio.com/reBot-Arm-B601-RS-Bundle-p-6898.html) | 1 | - Choose one of DM/RS- To reduce purchase pressure, you can also buy the parts-only version. Seeed also provides very detailed, step-by-step assembly tutorials.- Because the power supply shipped by Seeed uses fire-resistant materials, the price is somewhat higher. You can also purchase genuine Mean Well (Taiwan) power supplies on your own. |
+
+---
+
+# Stage 2: Robotic Arm Assembly and Basic Control
+
+## Chapter 4 [Theory]: Fundamentals of Robotic Arms and Joint Actuators
+
+### Fundamentals of Robotic Arms and Joint Actuators
+
+#### 4.1  Robotic Arm Safety Range and Workspace
+
+Understanding the parameters in the table above is the foundation for safely using a robotic arm:
+
+- **Reach** defines the safety boundary of the robotic arm and must not be exceeded. The reach range defines the safe workspace, preventing the robotic arm from colliding with equipment, fences, or personnel during motion.
+- **Rated load** sets the baseline for safe and efficient operation and must not be exceeded over long periods. Ignoring the rated load is extremely dangerous. Operating beyond the rated load will directly lead to: insufficient motor and joint torque, component overheating and shortened lifespan, and sudden mechanical failures.
+- **Maximum load** marks the absolute physical red line that must never be touched — it is a one-time strength limit. Treating the maximum load as a daily usage standard is extremely dangerous. This means every component of the robotic arm is operating at the edge of structural strength, and any minor impact or posture change could lead to catastrophic structural failure, such as joint fracture or robotic arm collapse.
+
+| Name | reBot Arm DM | reBot Arm RS |
+| --- | --- | --- |
+| Zero Position Posture | <img src="图片资源：img_v3_0213t_353ba040-8a7a-4a60-92f1-bfdce988552g.jpg" alt="img_v3_0213t_353ba040-8a7a-4a60-92f1-bfdce988552g.jpg" /> | <img src="图片资源：img_v3_0213t_994c7e4e-2f48-45cd-96ab-90f3ae16b13g.jpg" alt="img_v3_0213t_994c7e4e-2f48-45cd-96ab-90f3ae16b13g.jpg" /> |
+| J1 Joint Range | -150°~+150° | -150°~+150° |
+| J2 Joint Range | -220°~0° | -220°~0° |
+| J3 Joint Range | -220°~0° | -220°~0° |
+| J4 Joint Range | -90°~+90° | -90°~+90° |
+| J5 Joint Range | -90°~+90° | -90°~+90° |
+| J6 Joint Range | -180°~+180° | -180°~+180° |
+| Gripper Range | -325°~0° | -345°~0° |
+
+The zero position posture of the robotic arm is the absolute reference for all motion planning and position calculation. When the robotic arm needs to move to a certain point, it essentially calculates how much each joint needs to rotate from the zero position starting point. Therefore, when setting the zero point for each joint motor and initializing the robotic arm, this posture should be maintained.
+
+Mechanical limits are physical hard boundaries determined by the mechanical structure itself and cannot be changed. They act like physical stoppers, fundamentally limiting the rotation angle range of the joints. This prevents the robotic arm from over-rotating due to loss of control, which could cause damage to its own structure or collision with surrounding equipment. The joints of the robotic arm all have mechanical limits, but it is still necessary to pay attention to the motion range of different joints to prevent joint motors from stalling for extended periods due to exceeding the motion range.
+
+#### 4.2 Introduction to the Basic Structure of a Robotic Arm
+
+![](https://feishu.cn/file/Cu9PbVzxHoSbndxZBi9cGlzMn1v)
+
+| Name | Position | Motion Axis | Function |
+| --- | --- | --- | --- |
+| Base | The part where motor 1 is fixed | Rotates about the base vertical axis (Z-axis) | Enables the entire robotic arm to rotate horizontally |
+| Shoulder | The protruding part containing motor 2 | Rotates about the shoulder horizontal axis (Y-axis) | Enables the upper arm to pitch forward/backward or lift up/down relative to the shoulder |
+| Upper Arm | The part connecting the shoulder joint and elbow joint | Rotates about the elbow horizontal axis (Y-axis) | Enables the forearm to bend or extend relative to the upper arm |
+| Elbow | The part containing motor 3, located at the junction of the upper arm and forearm | Rotates about the wrist horizontal axis (Y-axis) | Enables the wrist to swing up and down; together with Wrist Yaw, jointly determines the pointing direction of the robotic arm end in space |
+| Forearm | The part connecting the elbow joint and wrist joint | Rotates about the wrist vertical axis (Z-axis) | Enables the wrist to swing left and right; together with Wrist Flex, jointly determines the pointing direction of the robotic arm end in space |
+| Wrist | The part containing motors 4, 5, and 6, located between the end gripper and forearm | Rotates about the wrist center axis (X-axis) | Enables the wrist end to rotate about its own central axis |
+| Gripper | The part containing motor 7, mounted on the wrist | Translational opening/closing | Enables the robotic arm to grasp objects |
+
+#### 4.3 Joint Actuator
+
+A joint actuator consists of **driver → motor → reducer → bearing/output flange → robot link**, while at the same time **encoder/torque sensor → controller → driver** forms closed-loop control.
+
+![](https://feishu.cn/file/UT0vbFkizo1rLUxI1KEcdu1unxA)
+
+#### 4.4 Reducer
+
+The original torque output by a motor is usually very small, but through gears with a reduction ratio i, the output torque is amplified by a factor of i. Without a reducer, to output large torque, the iron core and magnets must be increased, which would make the motor volume very large, causing costs and weight to soar. A reducer is the optimal physical lever that trades high rotational speed for large torque.
+
+The motor rotor itself is very light, and when the load is heavy, the motor may oscillate violently during acceleration and deceleration. A reducer can divide the load inertia reflected to the motor shaft by the square of the reduction ratio, making the motor's current loop more stable. This makes system control more stable.
+
+The reBot robotic arm currently adopts two different joint drive technical solutions: **Damiao DM planetary gear joint motor** and **Lingzu Era RS QDD (quasi-direct-drive) joint motor**. The core difference between the two is not just the motor brand, but **the degree of reduction of the reducer**.
+
+Simply put:
+
+> **DM solution: Relies on a large reduction ratio to "amplify" the motor output torque.**<br />**RS solution: Minimizes the reduction ratio, allowing the motor itself to bear more of the output torque.**
+
+Therefore, the two solutions produce significant differences in **output torque, motion speed, backdrivability, force control, mechanical impedance, impact resistance, and structural weight**.
+
+##### 4.4.1 Planetary Reducer
+
+The reducers used in both DM and RS motors are planetary reducers. Therefore, only the principle of planetary reducers is introduced here.
+
+![](https://feishu.cn/file/O6ApbHWduoBeooxxLlTcgqoZnhg)
+
+A planetary reducer generally has the ring gear fixed, the sun gear as input, and the planet carrier as output. At this time, the motor's transmission ratio is maximum. Assume the transmission ratio is $$i$$. The transmission ratio $$i$$ is only related to the number of teeth of the ring gear $$Z_r$$ and the number of teeth of the sun gear $$Z_s$$. The expression for the transmission ratio is:
+
+$$i=1+\frac{Z_r}{Z_s}$$
+
+One rotation of the sun gear pushes the planet gears to rotate on their own axes. But because the ring gear is fixed, the planet gears cannot simply rotate about a fixed axis; instead, they drive the planet carrier to rotate slowly. At this time, the motor rotor rotates $$i$$ times, and the planet carrier rotates approximately 1 time. The speed of the output planet carrier is reduced by a factor of $$i$$, but the output torque is increased by a factor of $$i$$. Therefore, the planetary reducer converts the motor's high speed and small torque into the low speed and large torque required by the joint.
+
+##### 4.4.2 DM Solution: Planetary Gear Joint Motor
+
+The reBot DM version uses Damiao Technology's planetary gear joint motors, for example:
+
+**DM4310: Reduction ratio approximately 10:1**
+
+**DM4340P: Reduction ratio approximately 40:1**
+
+**The P version in DM4340P adopts a crossed roller bearing structure**, used to withstand radial and axial loads generated during joint operation.
+
+Its basic structure can be understood as:
+
+**High-speed motor → Planetary reducer → Joint output shaft**
+
+The motor itself has a relatively high rotational speed but limited output torque. After passing through the planetary reducer, the output speed decreases while the output torque is amplified.
+
+Ideally, when the reduction ratio is (N:1):
+
+$$\omega_{out}=\frac{\omega_{motor}}{N}$$
+
+$$T_{out}\approx T_{motor}\times N\times\eta$$
+
+Where: N: reduction ratio
+
+$$\omega_{motor}$$: rotational speed
+
+T: torque
+
+$$\eta$$: reducer transmission efficiency
+
+For example, under the same other conditions, a 40:1 reducer can provide greater torque amplification capability compared to a 10:1 reducer, but at the same time the output speed will be further reduced.
+
+Therefore, the core idea of the DM solution can be summarized as:
+
+> **"The motor is responsible for high-speed rotation, and the reducer is responsible for amplifying torque."**
+
+- **Main advantages of the DM solution**
+  - **① Large output torque**
+  - **② Relatively low motor load**
+  - **③ Suitable for joints requiring large static load capacity**
+  - Heavy-load robotic arms
+  - Scenarios requiring large joint torque
+  - Scenarios where the requirement for absolute joint output speed is not particularly high
+- Main disadvantages of the DM solution
+  - **① Poor backdrivability**
+  > **The larger the reduction ratio, the more "difficult to push" the robotic arm usually is.**
+  - **② High mechanical impedance**
+  - **③ Output speed is limited**
+
+---
+
+##### 4.4.3 RS Solution: QDD Quasi-Direct-Drive Joint Motor
+
+The reBot RS version adopts Lingzu Era's **QDD (Quasi-Direct Drive) joint motor**. The core idea of QDD is exactly the opposite of traditional high-reduction-ratio joints:
+
+> **Minimize the reduction ratio, allowing the motor to directly undertake more of the joint output task.**
+
+Its basic structure can be understood as: **High-torque-density motor → Low-reduction-ratio planetary reducer → Joint output shaft.** Therefore, QDD is not completely without a reducer, but rather:
+
+> **"The reducer only provides a small amount of torque amplification, mainly relying on the motor's own high torque density to obtain joint output torque."**
+
+**Why does QDD require a stronger motor?** This is the key to understanding the difference between the two solutions. Assume both joints ultimately need to output:
+
+$$T_{out}=40N\cdot m$$
+
+If a 40:1 reducer is used, then theoretically the motor only needs to provide:
+
+$$T_{motor}\approx\frac{40}{40}=1N\cdot m$$
+
+If an 8:1 reducer is used, then it needs:
+
+$$T_{motor}\approx\frac{40}{8}=5N\cdot m$$
+
+That is to say: **After the reduction ratio is lowered, the motor must provide more torque itself.** Therefore, the QDD solution places higher demands on the motor, requiring the motor to have:
+
+- Higher torque density
+- Larger effective diameter
+- Stronger heat dissipation capability
+- Higher peak current withstand capability
+- Better overload capability
+
+This is also why QDD usually adopts solutions such as high-torque-density outer rotor motors. Related reviews also point out that QDD obtains better backdrivability and force transparency by reducing the reduction ratio, but at the cost of placing higher demands on motor torque density.
+
+The greatest value of QDD is not simply "a smaller reduction ratio," but rather: **making the joint closer to the dynamic characteristics of the motor itself.** Due to the low reduction ratio, the influence of the reducer on system motion is relatively small, so the joint has better backdrivability.
+
+##### 4.4.4 Core Differences Between the Two Solutions
+
+The two solutions can be understood as two completely different design philosophies.
+
+> [内嵌飞书表格，请到原文档查看]
+
+The high force transparency, strong backdrivability, and low mechanical impedance brought by QDD's low reduction ratio are its core advantages over high-reduction-ratio transmission solutions; at the same time, a low reduction ratio also means the motor needs to bear greater torque, therefore placing higher demands on the motor's torque density and thermal management.
+
+Therefore, the two solutions can be summarized in one sentence: **The DM planetary gear solution "trades a mechanical reducer for greater output torque"; the QDD quasi-direct-drive solution "trades a higher-performance motor for better dynamic performance and force control capability."** There is no absolute sense of "which is more advanced" between the two. For a robotic arm, the real choice depends on the application goal:
+
+**If load capacity, joint rigidity, and large torque output are more important → the DM solution has more advantages.**
+
+**If motion speed, backdrivability, human-robot collaboration, and force control are more important → the QDD solution has more advantages.**
+
+And for robotic arms oriented toward human-robot interaction, imitation learning, and reinforcement learning, QDD's low mechanical impedance and high backdrivability are particularly attractive, because the dynamic characteristics of the robotic arm are closer to the state of "the motor directly driving the load," which is conducive to high-dynamic motion and force interaction control.
+
+#### 4.5 Encoder
+
+An encoder is used to measure rotation angle. Common types include incremental encoders, multi-turn absolute position encoders, and single-turn absolute position encoders. Both Damiao (DM) motors and Lingzu (RS) motors contain 2 single-turn absolute position magnetic encoders. The encoder resolution is 14 bits for both.
+
+- **How an absolute position magnetic encoder determines position**
+
+An absolute position magnetic encoder uses a rotating magnet to change the magnetic field direction, and calculates the angle through a magnetoresistive chip, directly knowing the current position upon power-up.
+
+**Analogy:**
+
+Imagine the magnetic encoder as a smart compass with its own "map."
+
+The magnet is a small rotating magnet. The magnet is fixed on the motor rotor. When it rotates, the direction of the surrounding magnetic field changes accordingly. Just like a compass needle always points south, but this needle can spin around.
+
+The magnetoresistive chip: that is the "map sensor." It has 360° direction markings around it, and it can read in real time, like reading a compass, whether the current magnetic field points to 0°, 90°, or 270°.
+
+![](https://feishu.cn/file/NXk5bhNTOoXnHsxZYwnchyVsnXc)
+
+- Why joint motors use two encoders
+
+A joint motor contains 2 absolute position magnetic encoders, one measuring the high-speed motor rotor and one measuring the robot joint output shaft, used to compensate for reducer errors, improve accuracy, and ensure safety.
+
+**Analogy:**
+
+You are sitting in a car, holding the steering wheel (motor rotor end), but the steering wheel is not directly connected to the wheels; Instead, it is connected to the wheels (motor output end) through a long, elastic spring flexible shaft (reducer).
+
+If the steering wheel turns 10 times but the wheels only turn 9.8 times, the system immediately knows that 0.2 turns were absorbed by the spring flexible shaft, and immediately compensates a bit more — this compensates for the error with extremely high precision.
+
+- Position is not lost after power-off
+
+The motor does not lose position after power-off because the absolute encoder saves the current position. Upon re-powering, it reads the angles on the motor side and output side, then recovers the position through reduction ratio verification.
+
+#### 4.6 Motor Interface and Wiring
+
+##### DM Motor Interface and Wiring
+
+| Name | Image | Function |
+| --- | --- | --- |
+| XT30(2+2) | <img src="图片资源：image.png" alt="image.png" /> | 1. Connect the power supply through the XT30(2+2)-F plug power cable, with a rated voltage of 24V, to power the motor. Power Interface-2 2. Connect external control devices through the CAN communication terminal, which can receive CAN control commands and feed back motor status information. 3. The motor contains two power interfaces, either interface (including the CAN communication terminal) can be used independently, or multiple motors can be connected in series for convenient wiring. |
+| gh1.25 3pin | <img src="图片资源：image.png" alt="image.png" /> | Through the GH1.25 cable-3pin, use a USB2CAN debugging tool to connect to a PC, and use the Damiao Technology debugging assistant to perform parameter settings and firmware upgrades on the motor. |
+
+##### RS Motor Interface and Wiring
+
+| Name | Image | Function |
+| --- | --- | --- |
+| XT30(2+2) | <img src="图片资源：image.png" alt="image.png" /> | 1. Connect the power supply through the XT30(2+2)-F plug power cable, with a rated voltage of 24V, to power the motor. Power Interface-2 2. Connect external control devices through the CAN communication terminal, which can receive CAN control commands and feed back motor status information. 3. The motor contains two power interfaces, either interface (including the CAN communication terminal) can be used independently, or multiple motors can be connected in series for convenient wiring. |
+
+#### 4.7 DM Motor Control Modes
+
+The electronic speed controller converts the received CAN data into control variables for calculation, obtaining a torque value as the current reference for the current loop. The current loop ultimately reaches the given torque current according to its adjustment law.
+
+##### MIT Protocol
+
+![MIT mode control block diagram](https://feishu.cn/file/S8TmbxZh7oTDTXxPlGMcwcxPnbb)
+
+MIT mode can control the motor through three parameters: **position, velocity, and torque**.
+
+The final output torque of the motor is mainly determined jointly by the following parameters:
+
+- **Pdes**: Target position
+- **Vdes**: Target velocity
+- **Kp**: Position control strength; the larger Kp is, the more the motor tends to quickly return to the target position
+- **Kd**: Velocity control strength; can be used to suppress motor vibration and make motion more stable
+- **T_ff**: Directly given torque
+
+It can be simply understood as:
+
+**Motor output = Position control + Velocity control + Feedforward torque**
+
+MIT mode can achieve different control methods according to different parameter combinations:
+
+**Position control**
+
+1. Set Pdes, Kp, Kd.
+2. The motor will move to the specified position and suppress vibration during motion through Kd.
+
+**Velocity control**
+
+1. Set Kp = 0, Kd ≠ 0
+2. Then give Vdes to control the motor to rotate at the target velocity.
+
+**Torque control**
+
+1. Set Kp = 0, Kd = 0
+
+Then directly set T_ff to control the motor to output the specified torque.
+
+> 🚧 Note: When controlling position, kd cannot be set to 0, otherwise it will cause motor oscillation or even loss of control.
+
+##### Position-Velocity Mode
+
+![Position-velocity mode block diagram](https://feishu.cn/file/IW3JbUY9to3HnhxthaIcbO5unud)
+
+The position cascade mode adopts a three-loop cascade control mode, with the position loop as the outermost loop, its output as the reference for the velocity loop, and the output of the velocity loop as the reference for the inner current loop, used to control the actual current output.
+
+The final output torque of the motor is mainly determined jointly by the following parameters:
+
+- **p_des**: The target position for control.
+- **v_des**: Used to limit the maximum absolute velocity during motion.
+- **kp_pos**: Determines the amplification factor of position error on velocity command.
+- **ki_pos**: Determines the static position holding force.
+- **kp_vel**: Directly determines the dynamic acceleration torque.
+- **ki_vel**: Determines the anti-load-disturbance capability during the constant velocity segment.
+
+If the position cascade mode uses the control parameters recommended by the debugging assistant, it can achieve good control accuracy, and the control process is relatively compliant, but the response time is relatively long. In addition to v_des, configurable related parameters also include acceleration/deceleration settings. If additional oscillation occurs during the control process, the acceleration/deceleration can be increased.
+
+> 🚧 Note: The units of p_des and v_des are rad and rad/s respectively, the data type is float, and the damping factor must be set to a non-zero positive number. Refer to the notes for velocity mode.
+
+##### Velocity Mode
+
+![Velocity mode block diagram](https://feishu.cn/file/QI3FbKHoropcGMxS9F8c6zTWnQc)
+
+The outer loop of velocity mode is the velocity loop, and the output of the velocity loop serves as the reference for the inner current loop.
+
+The final output torque of the motor is mainly determined jointly by the following parameters:
+
+- **v_des**: Target velocity during motion.
+- **kp_vel**: Directly determines the dynamic acceleration torque.
+- **ki_vel**: Determines the anti-load-disturbance capability during the constant velocity segment.
+
+The unit of v_des is rad/s, and the data type is float. If you need to use the debugging assistant to automatically calculate parameters, you need to set the damping factor to a non-zero positive number, usually ranging from 2.0 to 10.0. A damping factor that is too small will bring velocity oscillation and large overshoot, while a damping factor that is too large will bring a long rise time. The recommended setting value is 4.0.
+
+##### PVT Mode (Force-Position Hybrid Control)
+
+![PVT mode block diagram](https://feishu.cn/file/CrXnbDp5vo8RErxNq0ZckqPAnzb)
+
+PVT (force-position hybrid control) mode dynamically controls the magnitude of output torque based on position-velocity mode control. A current command saturation link is added after the output command of the velocity loop, so that the reference of the current loop is limited within a given range.
+
+The final output torque of the motor is mainly determined jointly by the following parameters:
+
+- **p_des**: The target position for control.
+- **v_des**: Used to limit the maximum absolute velocity during motion.
+- **kp_pos**: Determines the amplification factor of position error on velocity command.
+- **ki_pos**: Determines the static position holding force.
+- **kp_vel**: Directly determines the dynamic acceleration torque.
+- **ki_vel**: Determines the anti-load-disturbance capability during the constant velocity segment.
+
+#### 4.8  Different Modes of RS Motors
+
+##### Motion Control Mode
+
+![](https://feishu.cn/file/JOBJbGZeWoPhunx9ipMc5Q2xn5f)
+
+The motion control mode of RS is similar to the MIT mode of DM. The control logic of motion control mode is as follows:
+
+t_ref=Kd\*(v_des - v_actual)+Kp\*(p_des - p_actual)+t_ff
+
+Finally, tref is converted to the desired iq current through an internal formula and output through the current loop.
+
+The final output torque of the motor is mainly determined jointly by the following parameters:
+
+- **Pdes**: Target position
+- **Vdes**: Target velocity
+- **Kp**: Position control strength; the larger Kp is, the more the motor tends to quickly return to the target position
+- **Kd**: Velocity control strength; can be used to suppress motor vibration and make motion more stable
+- **T_ff**: Directly given torque
+
+It can be simply understood as:
+
+**Motor output = Position control + Velocity control + Feedforward torque**
+
+MIT mode can achieve different control methods according to different parameter combinations:
+
+**Position control**
+
+1. Set Pdes, Kp, Kd.
+2. The motor will move to the specified position and suppress vibration during motion through Kd.
+
+**Velocity control**
+
+1. Set Kp = 0, Kd ≠ 0
+2. Then give Vdes to control the motor to rotate at the target velocity.
+
+**Torque control**
+
+1. Set Kp = 0, Kd = 0
+
+Then directly set T_ff to control the motor to output the specified torque.
+
+##### Current Mode
+
+![](https://feishu.cn/file/MUEfbzZ2So00RbxdzDlcaErAnIc)
+
+This provides the motor's current loop as a control interface to the user. This mode is generally not used. The usage of this interface can refer to the FOC algorithm.
+
+##### Velocity Mode
+
+![](https://feishu.cn/file/Dnxjbdk08oZWkTxR16EcT4bcnrc)
+
+Velocity mode uses the difference between the set velocity and the current velocity as the input to the PI controller, and the output torque of the PI controller is limited to a range. The torque is converted to the desired iq current through an internal formula and output through the current loop.
+
+The final output torque of the motor is mainly determined jointly by the following parameters:
+
+- **v_des**: Target velocity during motion, that is, the current velocity.
+- **kp_vel**: Directly determines the dynamic acceleration torque.
+- **ki_vel**: Determines the anti-load-disturbance capability during the constant velocity segment.
+- **Torque protection**: Limits the output torque.
+
+##### **Position-Velocity Mode (CSP)**
+
+![](https://feishu.cn/file/IbTUbsPHDoHP0LxycLccdg9cnSg)
+
+Position mode CSP can also be called position-velocity mode. The difference between the set angle and the current angle is used as the input to the position loop, where the position loop is a pure proportional controller. The output of the position loop passes through velocity limiting and then serves as the input to the velocity loop. The velocity loop is a PI controller, and the output torque passes through torque protection limiting and is then converted to the desired iq current, output through the current loop.
+
+The final output torque of the motor is mainly determined jointly by the following parameters:
+
+- **p_des**: The target position for control.
+- **v_des**: Used to limit the maximum absolute velocity during motion.
+- **kp_pos**: Determines the amplification factor of position error on velocity command.
+- **ki_pos**: Determines the static position holding force.
+- **kp_vel**: Directly determines the dynamic acceleration torque.
+- **ki_vel**: Determines the anti-load-disturbance capability during the constant velocity segment.
+- **Torque protection**: Limits the desired output torque.
+
+##### **Position-Velocity Mode (PP)**
+
+![](https://feishu.cn/file/PLHIbpy45odpitxSgRNcZUDqnAh)
+
+This mode is also the position-velocity mode interface provided by motorbridge.
+
+Position mode PP adds a trapezoidal velocity curve planning compared to CSP. It inputs the set velocity, set angle, and set acceleration, and outputs the planned angle. The planned angle output by the t-curve planner serves as the input to the position loop, where the position loop is a pure proportional controller. The output of the position loop passes through velocity limiting and then serves as the input to the velocity loop. The velocity loop is a PI controller, and the output torque passes through torque protection limiting and is then converted to the desired iq current, output through the current loop.
+
+The final output torque of the motor is mainly determined jointly by the following parameters:
+
+t-curve planner parameters:
+
+- **p_set**: The set desired target position.
+- **v_des**: The set desired velocity value.
+- **Acc_set**: The set desired acceleration
+
+Position loop/velocity loop parameters:
+
+- **p_des**: The target position for control.
+- **v_des**: Used to limit the maximum absolute velocity during motion.
+- **kp_pos**: Determines the amplification factor of position error on velocity command.
+- **ki_pos**: Determines the static position holding force.
+- **kp_vel**: Directly determines the dynamic acceleration torque.
+- **ki_vel**: Determines the anti-load-disturbance capability during the constant velocity segment.
+- **Torque protection**: Limits the desired output torque.
+
+#### 4.9 Emergency Stop and Abnormal Power-Off Principles
+
+(1) Abnormal shaking must be immediately powered off. Because high-frequency shaking means the motor is outputting high-frequency forward and reverse torques, and if the power is not immediately cut off, it may lead to motor damage.
+
+(2) Hitting a limit must be immediately powered off. Because hitting a limit means the motor may be stalling. If the power is not immediately cut off, it may lead to motor overheating or damage.
+
+(3) Abnormal situations such as sudden falling of the robotic arm must be immediately powered off to prevent other unexpected situations.
+
+---
+
+## Chapter 5 [Theory]: CAN Bus and Motor Communication
+
+### CAN Bus and Motor Communication
+
+After completing this section, you should be able to understand the following questions:
+
+- How a piece of data is sent out on the CAN bus;
+- What parts a CAN data frame consists of;
+- What CAN ID, DLC, and Data respectively represent;
+- What the difference is between standard frames and extended frames;
+- What the roles of fields such as CRC and ACK are.
+
+For practical development, it is not necessary to memorize every bit in a CAN frame from the start.
+
+**The most important thing at the beginner stage is to first understand: ID, DLC, Data.**
+
+#### 5.1 CAN Basic Principles
+
+CAN is the abbreviation for Controller Area Network, and is an ISO international standardized serial communication protocol. The CAN bus network structure has two forms: closed-loop and open-loop.
+
+Generally, the CAN bus network structure used by robotic arms or robots uses a closed-loop CAN bus network, that is, a 120-ohm resistor is connected at each end of the bus, and the two signal lines form a loop. This CAN bus network is defined by the ISO 11898 standard and is a high-speed, short-distance CAN network with a communication rate of 125 kbit/s to 1 Mbit/s. At a communication rate of 1 Mbit/s, the maximum bus length is 40 m.
+
+![](https://feishu.cn/file/ZmPfb7nC2oTBFcx6ZiBc4TejnFe)
+
+The bus consists of two signal lines, CAN_L and CAN_H. CAN transmits differential signals, representing the bus level through the voltage difference between the two signal lines, that is, CAN_H - CAN_L. The one corresponding to logic 1 is called the recessive level, and the one corresponding to logic 0 is called the dominant level. In ISO 11898, the recessive level is near a voltage difference of 0, and the dominant level is mainly near a voltage difference of 2V.
+
+#### 5.2 CAN Protocol
+
+| Frame Type | Frame Purpose |
+| --- | --- |
+| Data Frame | Sends data |
+| Remote Frame | Requests data |
+| Error Frame | Reports bus errors |
+| Overload Frame | Requests delay |
+| Inter Frame Space | Separates consecutive frames |
+
+> 📣 Since DM motors use CAN 2.0 standard data frames and RS motors use CAN 2.0 extended data frame format, only these two data frame formats are introduced below. It is recommended to read the following introduction against the protocol section in the motor's data sheet.
+
+##### 5.2.1 reBot DM Standard Data Frame (11 bytes total)
+
+| **Byte** | Bit |  |  |  |  |  |
+| --- | --- | --- | --- | --- | --- | --- |
+| 7 | 6 | 5 | 4 | 3~0 |  |  |
+| Byte 1 | Frame Info | FF | RTR | X | X | DLC |
+| Byte 2 | Frame ID1 | ID10~ID3 |  |  |  |  |
+| Byte 3 | Frame ID2 | ID2~ID0 | X | X | X |  |
+| Byte 4 | Data 1 | DATA1 |  |  |  |  |
+| Byte 5 | Data 2 | DATA2 |  |  |  |  |
+| Byte 6 | Data 3 | DATA3 |  |  |  |  |
+| Byte 7 | Data 4 | DATA4 |  |  |  |  |
+| Byte 8 | Data 5 | DATA5 |  |  |  |  |
+| Byte 9 | Data 6 | DATA6 |  |  |  |  |
+| Byte 10 | Data 7 | DATA7 |  |  |  |  |
+| Byte 11 | Data 8 | DATA8 |  |  |  |  |
+
+- Frame description part (first 3 bytes)
+
+**Byte 1 is frame information.** Bit 7 (FF) indicates the frame format. In a standard frame, FF is 0. Bit 6 (RTR) indicates the frame type. RTR=0 indicates a data frame, and RTR=1 indicates a remote frame. DLC indicates the actual data length when it is a data frame.
+
+**Bytes 2 to 5 are the frame ID.** The ID of a standard data frame has 11 bits. Sent sequentially from ID10 to ID0, there can be 2^11 types of messages. The frame ID range is: 000-7FF. It is forbidden for the upper 7 bits to all be recessive (forbidden setting: ID=1111111XXXX).
+
+- Frame data part (last 8 bytes)
+
+**Bytes 4~11 are the actual data of the data frame.**
+
+##### 5.2.2 reBot RS Extended Data Frame (13 bytes)
+
+| **Byte** | Bit |  |  |  |  |  |
+| --- | --- | --- | --- | --- | --- | --- |
+| 7 | 6 | 5 | 4 | 3 | 2~0 |  |
+| Byte 1 | Frame Info | FF | RTR | X | X | DLC |
+| Byte 2 | Frame ID1 | ID28~ID21 |  |  |  |  |
+| Byte 3 | Frame ID2 | ID20~ID13 |  |  |  |  |
+| Byte 4 | Frame ID3 | ID12~ID5 |  |  |  |  |
+| Byte 5 | Frame ID4 | ID4~ID0 | x |  |  |  |
+| Byte 6 | Data 1 | DATA1 |  |  |  |  |
+| Byte 7 | Data 2 | DATA2 |  |  |  |  |
+| Byte 8 | Data 3 | DATA3 |  |  |  |  |
+| Byte 9 | Data 4 | DATA4 |  |  |  |  |
+| Byte 10 | Data 5 | DATA5 |  |  |  |  |
+| Byte 11 | Data 6 | DATA6 |  |  |  |  |
+| Byte 12 | Data 7 | DATA7 |  |  |  |  |
+| Byte 13 | Data 8 | DATA8 |  |  |  |  |
+
+- Frame description part (first 5 bytes) **Byte 1 is frame information.** Bit 7 (FF) indicates the frame format. In an extended frame, FF is 1. Bit 6 (RTR) indicates the frame type. RTR=0 indicates a data frame, and RTR=1 indicates a remote frame. DLC indicates the actual data length when it is a data frame. **Bytes 2 to 5 are the frame ID.** The ID in extended format has 29 bits. The basic ID is from ID28 to ID18, and the extended ID is represented by ID17 to ID0. The basic ID is the same as the ID in standard format. There can be 2^29 types of messages, and there are gaps on the data link (transparent to the operator). The frame ID range is 0000 0000-1FFF FFFF. It is forbidden for the upper 7 bits to all be recessive (forbidden setting: basic ID=1111111XXXX).
+- Frame data part (last 8 bytes) **Bytes 6~13 are the actual data of the data frame.**
+
+##### 5.2.3 CAN Data Link Layer
+
+The CAN bus can be understood as a "group chat." Many devices are connected to the bus, for example:
+
+- Main controller;
+- Motors;
+- Sensors;
+- Battery management system;
+- Other control modules.
+
+All devices share the same CAN bus. When a device wants to send data, it cannot just send it arbitrarily; instead, it must package the data into a complete **CAN data frame** according to the format specified by the CAN protocol.
+
+A CAN frame can be simply understood as:
+
+**Start sending → Message number → Data length → Actual data → Data check → Receive confirmation → End sending**
+
+The corresponding CAN frame structure can be simplified as:
+
+**SOF → ID → Control field → DLC → Data → CRC → ACK → EOF**
+
+![](https://feishu.cn/file/KkE3bhLykoHv5BxSRdKcgNiknGf)
+
+See the figure below for detailed explanation:
+
+| Name | Function |
+| --- | --- |
+| Idle segment (bus idle) | The bus is at recessive level 1, and no node operates the bus. When no device is sending data, the CAN bus is in an idle state. Currently no device is speaking, and everyone is waiting. |
+| Start of Frame (SOF) | SOF is fixed as one dominant bit `0`. Since the CAN bus is `1` when idle, when `0` suddenly appears on the bus, other devices know: a device has started sending data. Therefore, SOF can be understood as: **"I'm starting to send."** |
+| Arbitration segment (frame ID, RTR or SRR) | ID: It can be understood as: the number of this message. For example, in motor control, `0x01` can be used: motor 1 control command; `0x02`: motor 2 control command, etc.; **ID more accurately represents "the identity or type of the message." The smaller the ID value, the higher the priority.** RTR: It is mainly used to distinguish: ordinary data frame RTR=0 and remote request frame RTR=1. **When sending ordinary CAN data daily, RTR is generally 0.** SRR: An arbitration bit dedicated to extended frames, fixed at 1. Mainly used to ensure that under the same basic ID, standard frames take priority over extended frames. |
+| Control segment (IDE, reserved bits, DLC) | The IDE bit is used to distinguish standard frames from extended frames. **IDE = 1** extended frame, 29-bit ID. **IDE = 0** standard frame, 11-bit ID. The extended frame has a larger ID range and can provide more message numbers. DLC: Tells the receiver how much data there is. For example:- DLC = 1, indicating 1 Byte of data **8 bits**;- DLC = 4, indicating 4 Bytes of data **32 bits**;- DLC = 8, indicating 8 Bytes of data **64 bits**. |
+| Data Field | This is the actual data content, with a length corresponding to DLC. For example, the main controller needs to send to the motor: target position; target velocity; target torque. **Check the CAN communication protocol provided by the device manufacturer to confirm what each byte represents.** |
+| CRC segment | The "check code" of CAN data. Performs CRC calculation on all data bits, including frame start, arbitration segment, control segment, and data segment. **Checks whether errors occur during CAN data transmission.** The CRC delimiter must be at recessive level. |
+| ACK segment | ACK — tells the sender "I received it." After the sender finishes sending, it releases the bus to recessive level 1. If the receiver receives correctly, it needs to reply with dominant level 0 at this bit. At this time, the sender reads the ACK slot as 0, indicating that ACK was received. The ACK delimiter is when the receiver releases the level, which is recessive. |
+| End of Frame (EOF, **End Of Frame**) | The current CAN data transmission ends. 7 recessive 1s. |
+
+![](https://feishu.cn/file/AjiObQ10ZoPRboxi0SQcLi2on8d)
+
+#### 5.3 SocketCAN
+
+SocketCAN is a mainstream implementation of the CAN protocol on Linux systems. SocketCAN uses the socket API and Linux network stack technology to implement CAN device drivers as network interfaces, making it easy to use and highly compatible.
+
+Reference documentation for detailed usage: [https://docs.linuxkernel.org.cn/networking/can.html](https://docs.linuxkernel.org.cn/networking/can.html)
+
+---
+
+## Chapter 6 [Practice]: Assembly, Power Supply, and First Power-On
+
+### Assembly, Power Supply, and First Power-On
+
+#### 6.1 Robotic Arm Assembly
+
+- [reBot DM Robotic Arm Assembly](https://www.youtube.com/watch?v=rfTQoFCfnMc&list=PLpH_4mf13-A0UsztzM_yWQUsxXbYMVydM&index=15)
+- [reBot RS Robotic Arm Assembly](https://www.youtube.com/watch?v=Bv60NPO0TRo&list=PLpH_4mf13-A38iXew5DxqswGLjPQ0BflR&index=6)
+
+#### 6.2 Power Supply Assembly
+
+- [reBot DM Power Supply Assembly](https://www.youtube.com/watch?v=DHFA2UfQzUo&list=PLpH_4mf13-A0UsztzM_yWQUsxXbYMVydM&index=3)
+- [reBot RS Power Supply Assembly](https://www.youtube.com/watch?v=5GitUWT9gx0)
+
+#### 6.3 Robotic Arm Wiring
+
+- [reBot DM Robotic Arm Wiring](https://www.youtube.com/watch?v=vVxCOfu5ZCE)
+
+1. Connect the robotic arm to the adapter board
+
+![](https://feishu.cn/file/JqUpbKqjNontGCxjTylcehCynuf)
+
+1. Power supply connection: XT60 to XT30 cable
+
+![](https://feishu.cn/file/XuPSbP3OXo2czaxbzAOc9rbmn4g)
+
+1. Connect the XT60 to XT30 cable to the adapter board
+
+![](https://feishu.cn/file/NT4zbDHxQoj8QFxRCSBcmvozncb)
+
+1. Connect USB2CAN to GH1.25 2-pin
+
+![](https://feishu.cn/file/QyBKbag2VolEhyxEopeclqOMnQg)
+
+1. Connect the other end of the GH1.25 2-pin cable to the adapter board
+
+![](https://feishu.cn/file/CUuDbWe9moA62Mx4UdKctCp2nDg)
+
+1. Connect USB2CAN to the computer via a Type-C data cable
+
+> 📣 Note:
+>
+> 1. Motor 1 and motor 2 must be connected to each other
+
+- [reBot RS Robotic Arm Wiring](https://www.youtube.com/watch?v=llSa6qn3yrY&list=PLpH_4mf13-A38iXew5DxqswGLjPQ0BflR&index=8)
+
+1. Connect the robotic arm to the adapter board
+
+![](https://feishu.cn/file/TGNXbOuVUo0jA7xOvXXc1HaRnwY)
+
+1. Power supply connection: XT60 to XT30 cable
+
+![](https://feishu.cn/file/Ll5lbsUAlo6F0Cxn4KWcobVrnYL)
+
+1. Connect the XT60 to XT30 cable to the adapter board
+
+![](https://feishu.cn/file/Vxr3bUygqo9ewmxQkfPcHgRknnf)
+
+1. Connect CANable to GH1.25 2-pin cable
+
+![](https://feishu.cn/file/FweQbG6CNoGJvNxnApXcBLPDndf)
+
+1. Connect the other end of the GH1.25 2-pin cable to the adapter board
+
+![](https://feishu.cn/file/UM5IbNm2LoC133xJwdHcrFeNnGg)
+
+1. Connect CANable to the computer
+
+> 📣 Note:
+>
+> 1. Motor 1 and motor 2 must be connected to each other
+
+#### 6.4 Robotic Arm Power Supply Requirements
+
+The power supply requirement for reBot DM is 24V, and the power supply requirement for reBot RS is 48V.
+
+Below are our recommended power supply usage instructions. If your household voltage is 220V, please set the DIP switch on the side of the power supply to 230V. If your household voltage is 110V, please set the DIP switch on your power supply to 115V.
+
+| <img src="图片资源：image.png" alt="image.png" /> | <img src="图片资源：image.png" alt="image.png" /> |
+| --- | --- |
+
+#### 6.5 Robotic Arm Power-On
+
+For the reBot DM robotic arm, the lights of all joints will light up and turn red, at which point the robotic arm is in a disabled state.
+
+The reBot RS robotic arm is no different from when it is powered off, and can only be determined through communication with the motor.
+
+---
+
+## Chapter 7 [Practice]: MotorBridge Motor Control Library
+
+### MotorBridge and Robotic Arm Calibration
+
+#### 7.1  What is MotorBridge?
+
+MotorBridge is a **cross-vendor unified CAN motor control software stack** open-sourced by **Seeed Studio**, oriented toward integrated joint motors for robotic arms/humanoid robots. It uses a high-performance Rust core at the bottom layer, provides a standard C ABI interface, and comes with Python/C++/ROS2 language bindings. One set of APIs can drive mainstream integrated joint motors on the market.
+
+Core positioning: **One set of code, compatible with all mainstream joint motors, eliminating the differences in each vendor's proprietary CAN protocol**, specifically solving the pain point of tedious multi-motor-brand adaptation in robotic arm development.
+
+- What industry pain points it solves: Integrated joints on the market (Damiao, RobStride, MyActuator, etc.) each have proprietary CAN protocols, command formats, and control modes that are completely incompatible: MotorBridge provides a layer of abstract encapsulation, **the upper-layer API calls are completely consistent, and the bottom layer automatically adapts to different vendor protocols**. Switching motors only requires modifying vendor parameters, without changing the motion control logic.
+  1. Changing the motor brand requires rewriting the entire set of CAN communication and three-loop control code;
+  2. Developers need to learn more than 5 sets of proprietary protocols simultaneously and maintain multiple code libraries;
+  3. Lack of unified debugging, calibration, and visualization tools, and the tools配套 with each motor are not universal;
+  4. Python native control has poor real-time performance, and GC pauses affect robot motion control.
+
+| Motor Vendor | Bus Type | Supported Control Modes |
+| --- | --- | --- |
+| Damiao | CAN2.0 / Serial Bridge | MIT Impedance, Position-Velocity, Pure Velocity, Force-Position Control |
+| RobStride | CAN2.0 | MIT, Position, Velocity |
+| MyActuator RMD | CAN2.0 | Current, Position, Velocity |
+| HighTorque | CAN2.0 | MIT, Position-Velocity, Pure Velocity, Force-Position Control |
+| Hexfellow | CAN-FD | MIT, Position-Velocity |
+
+- Overall layered architecture (top to bottom)
+  - Application layer (user development layer)
+
+Supports Python, C++ (in development), ROS2 nodes. Developers directly call unified APIs without caring about the underlying CAN protocol.
+
+- Python: ctypes binds the dynamic library compiled by Rust, lightweight with no performance loss;
+- Supporting tools: command-line CLI, Web visualization console MotorBridge-Studio.
+- Advantages compared to traditional vendor-specific SDKs
+
+| Comparison Item | Vendor Native SDKs | MotorBridge |
+| --- | --- | --- |
+| Multi-motor-brand compatibility | Single-brand dedicated, switching motors requires rewriting code | Unified API, changing motors only requires modifying vendor parameters |
+| Real-time performance | Python implementation, GC stuttering, unstable timing | Rust bottom layer, no garbage collection, strong real-time performance |
+| Debugging tools | Each has an independent upper computer, inconsistent operations | Unified CLI + Web visualization console |
+| Multi-language support | Most only provide Python | Python/C++/ROS2 share the bottom-layer library |
+| Protocol encapsulation | Requires developers to manually parse CAN messages | Completely shields underlying CAN protocol details |
+| Cross-platform | Inconsistent adaptation | Full platform support for Windows/macOS/Linux |
+
+#### 7.2  Installation Environment
+
+##### 7.2.1Install Miniforge
+
+###### Ubuntu Installation
+
+```Plain
+wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh
+```
+
+```Plain
+bash Miniforge3-Linux-x86_64.sh 
+```
+
+Next, follow the prompts to enter yes or press the enter key. After successful installation, enter the following command to update the terminal script.
+
+```Plain
+source ~/.bashrc
+```
+
+When (base) appears before the username, the installation is successful.
+
+###### Other platforms can refer to the following
+
+Jetson/Raspberry Pi:
+
+```Plain
+wget "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$$(uname)-$$(uname -m).sh"
+```
+
+```Plain
+bash Miniforge3-$$(uname)-$$(uname -m).sh
+```
+
+macOS:
+
+```Plain
+curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-MacOSX-$(uname -m).sh"
+```
+
+```Plain
+bash Miniforge3-MacOSX-$(uname -m).sh
+```
+
+Windows:
+
+```Plain
+Open the Miniforge Release page in your browser, find the latest version of Miniforge3-Windows-x86_64.exe and click to download:
+```
+
+```Plain
+https://github.com/conda-forge/miniforge/releases
+```
+
+##### 7.2.2 Create Environment
+
+Python 3.10 or above virtual environment, motorbridge requires python version >=3.10
+
+```Plain
+conda create -y -n rebot_motorbridge python=3.12
+```
+
+Then activate the virtual environment. Every time you open a terminal and want to use the related functions in the virtual environment, you need to re-execute this activation command.
+
+```Plain
+conda activate rebot_motorbridge
+```
+
+###### Install motorbridge
+
+After activating the reBot_motorbridge virtual environment, execute the following command to install motorbridge
+
+```Plain
+pip install motorbridge
+```
+
+#### 7.3 MotorBridge Controls DM Motors
+
+##### Web Control
+
+1. Open the following address in your browser
+
+```Plain
+https://motorbridge.github.io/motorbridge-studio/
+```
+
+1. Then click the **Help** option, copy the corresponding command according to your operating system and the driver board used, verify the IP address and port number, and press Enter in the terminal to run.
+
+![](https://feishu.cn/file/EFKIbk4FAoxPyVxzxRGclbslnng)
+
+1. In the Help option, copy the corresponding command according to your operating system and the driver board used, verify the IP address and port number, and press Enter in the terminal to run. Taking Damiao DM motors as an example:
+
+- Linux platform enter the following command
+
+```Plain
+motorbridge-gateway -- \
+  --bind 127.0.0.1:9002 --vendor damiao --transport dm-serial \
+  --serial-port /dev/ttyACM0 --serial-baud 921600 \
+  --dt-ms 20
+```
+
+- MAC platform enter the following command
+  ```Plain
+  motorbridge-gateway -- \
+    --bind 127.0.0.1:9002 --vendor damiao --transport dm-serial \
+    --serial-port /dev/tty.usbmodem14101 --serial-baud 921600 \
+    --dt-ms 20
+  ```
+- Windows enter the following command
+  ```Plain
+  motorbridge-gateway -- --bind 127.0.0.1:9002 --vendor damiao --transport dm-serial --serial-port COM3 --serial-baud 921600 --dt-ms 20
+  ```
+
+> 🚧 Note: The port number must be the correct port, and permissions must be granted before binding.
+
+1. After entering the above command, return to the webpage, click Connect. After successful connection, green 'Connected' text will appear in the upper right corner.
+
+![The image shows the Web-side control interface of MotorBridge Studio. At the top of the interface, 'MotorBridge Studio' and language options are displayed. Below in the Connection area, there are input boxes for WS URL, Transport (currently dm-serial), Serial Port (displayed as /dev/ttyACM0), etc., as well as 'Connect' and 'Disconnect' buttons. On the right side there is a MOTORBRIDGE_WS_TOKEN input box, and below is Scan Timeout (ms) set to 500. This image is related to the content introducing MotorBridge and robotic arm calibration, Web-side control, etc. in the document, and is an interface display for performing related operations.](https://feishu.cn/file/CYxLbIrFfofSbGxUgeUcdfsEnOe)
+
+1. After selecting the DM motor, click Scan Damiao
+
+![](https://feishu.cn/file/T1nCbuuvooiwPexzXcJcLJjxnLd)
+
+1. After successful scanning, the following card appears
+
+![](https://feishu.cn/file/ZzGtbNxfYoNyvMxTs7pchSBynqh)
+
+1. On the right side are the motor-related parameters. Click the enable button in the lower left corner, and the motor light turns green. At this point, you can control the motor.
+
+![](https://feishu.cn/file/BGotbsXWSokntFxuXpzcUxdSnPd)
+
+1. Drag the slider or enter the corresponding angle in the small box (unit is rad), then click Move, and the motor will rotate to the target angle.
+2. After clicking the Enable button, click Zero+Save to set the current position as the zero point.
+3. Set the motor ID. If the motor is used on reBot, can_id should be set to the corresponding joint number, and master_id should be set to 0x10+can_id.
+
+> 🚧 For example, if can_id is 1, then master_id should be 0x11, that is, 16+1=17. Then click Set CAN_ID.
+
+![](https://feishu.cn/file/X2RIbUYuNoUoIzx3pAYcgZv3nAh)
+
+##### Python Code Control
+
+> 🚧 If the environment is not installed, please first refer to the installation environment in section 7.1. The DM motor-related examples are all implemented through Damiao's serial port.
+
+First, pull the example code
+
+```Plain
+git clone https://github.com/hopcan/motorbridge_ctrl.git 
+```
+
+Then activate the corresponding conda environment and enter the example code folder
+
+```Plain
+conda activate rebot_motorbridge
+
+cd your_folder_path/motorbridge_ctrl/dm_motor_ctrl
+```
+
+- Enable/Disable DM Motors
+
+1_enable_dm.py is a typical example of enabling/disabling DM motors.
+
+```Plain
+python 1_enable_dm.py
+```
+
+Phenomenon: After the DM motor is enabled, the motor light turns green. After 3 seconds, the DM motor is disabled.
+
+```Python
+#Enable specified motor, disable motor after 3 seconds
+from motorbridge import Controller, Mode
+import time
+motor_configs = {
+    1 : {
+        "can_id": 0x01,
+        "master_id": 0x11, #0x10+1
+        "model": "4310", #4310、4340P、6001
+    },
+}
+
+ctrl = Controller.from_dm_serial("/dev/ttyACM0", 921600)
+
+#add motor
+#Add motor to the bus
+motor={}
+for num,cfg in motor_configs.items():
+    motor[num] = ctrl.add_damiao_motor(cfg["can_id"], cfg["master_id"], cfg["model"])
+
+#enable all motor
+#Enable all motors on the bus
+ctrl.enable_all()
+
+time.sleep(3)
+#disable all motor
+#Disable all motors on the bus
+ctrl.disable_all()
+```
+
+- Scan Motor ID
+
+2_scan_DMmotor.py is an example of scanning the CAN ID of DM motors.
+
+```Plain
+python 2_scan_DMmotor.py 
+```
+
+The input of the main implementation function scan_damiao_motors is the CAN ID range and port. After running, the scanned CAN ID and its corresponding master ID will be displayed. This script can be used to check whether the CAN ID and the corresponding master ID are correct.
+
+```Python
+from motorbridge import Controller
+
+def scan_damiao_motors(start_can_id, end_can_id,channel="/dev/ttyACM0"):
+    found_motors = []
+
+    print(f"start scanning  {channel},canID : {start_can_id} - {end_can_id}")
+
+    for motor_can_id in range(start_can_id, end_can_id + 1):
+            ctrl =Controller.from_dm_serial(channel, 921600)
+            temp_motor_master_id = 0x11 + motor_can_id
+
+            try:
+                motor = ctrl.add_damiao_motor(motor_can_id, temp_motor_master_id, "4340P")
+
+                try:
+                    # read register to get the can id
+                    #Read register to get CAN ID
+                    esc_id = motor.get_register_u32(8, timeout_ms=100)
+                    master_id = motor.get_register_u32(7, timeout_ms=100)
+                    print(f"[find] motor_can_id=0x{esc_id:02X} motor_master_id=0x{master_id:02X}")
+                    found_motors.append((esc_id))
+
+                except Exception:
+                    # read error, no this can id
+                    #Read error, no such CAN ID
+                    print(f"[no respond] motor_can_id=0x{motor_can_id:02X}")
+
+                finally:
+                    motor.close()
+
+            except Exception as e:
+                print(f"[error] motor_can_id=0x{motor_can_id:02X}: {e}")
+            finally:
+                ctrl.close_bus()
+                ctrl.close()
+
+    print(f"\nfinish find {len(found_motors)} motor")
+    return found_motors
+#run scanning
+#Run scanning
+if __name__ == "__main__":
+    motors = scan_damiao_motors(start_can_id=1, end_can_id=10,channel="/dev/ttyACM0")
+
+    print("\nfind motor config:")
+    for can_id in motors:
+        print(f"  can_id=0x{can_id:02X}")
+```
+
+- Set CAN ID and Corresponding Master ID
+
+3_set_id.py is an example of setting the CAN ID and master ID of DM motors.
+
+```Plain
+python 3_set_id.py
+```
+
+The input of the main implementation function set_DMmotor_ID is the old CAN ID, the new CAN ID to be set, the new master ID to be set, and the port.
+
+```Python
+from motorbridge import Controller
+from motorbridge import Controller, RID_MST_ID, RID_ESC_ID
+import time
+#set canID and masterID
+#Set CAN ID and master ID
+def set_DMmotor_ID(old_can_id,new_can_id,new_master_id,channel="/dev/ttyACM0"):
+
+    ctrl =Controller.from_dm_serial(channel, 921600)
+    temp_motor_master_id= 0x10 + old_can_id 
+    motor = ctrl.add_damiao_motor(old_can_id, temp_motor_master_id, "4340P")
+
+    try :
+        motor.write_register_u32(RID_MST_ID, new_master_id)
+    except Exception:
+        pass
+    try :
+        motor.write_register_u32(RID_ESC_ID, new_can_id)
+    except Exception:
+        pass
+    new_motor = ctrl.add_damiao_motor(new_can_id , new_master_id, "4340P")
+    new_motor.store_parameters()
+    print("change ID and save")
+    time.sleep(1)
+    ctrl.close_bus()
+    ctrl.close()
+
+if __name__== "__main__" :
+    old_can_id = 0x06
+    new_can_id = 0x01
+    new_master_id = 0x11
+    set_DMmotor_ID(old_can_id,new_can_id,new_master_id,channel="/dev/ttyACM0")
+```
+
+- Control Different Modes
+
+4_mit_ctrl.py is a control example for MIT mode. kp is the stiffness of the controller, kd is the damping of the controller, and tau is the feedforward torque.
+
+```Plain
+python 4_mit_ctrl.py
+```
+
+Phenomenon: The example only gives tau, so the motor will keep rotating. According to MIT mode, various control modes can be derived. For example, when kp=0 and kd is not 0, giving vel can achieve constant-speed rotation; when kp=0 and kd=0, giving tau can achieve given torque output.
+
+> 🚧 Note:
+>
+> 1. When only giving tau, do not give too large a tau. If tau is too large, the motor will rotate faster and faster to achieve the desired tau.
+> 2. When controlling position, kd cannot be set to 0, otherwise it will cause motor oscillation or even loss of control.
+> 3. The units of pos and vlim are rad and rad/s respectively, and the data type is float.
+
+```Python
+from motorbridge import Controller, Mode
+import time 
+
+motor_can_id = 0x01 
+motor_master_id = 0x11
+channel="/dev/ttyACM0"
+
+#get motor handle
+#Get motor control handle
+ctrl =Controller.from_dm_serial(channel,921600)
+motor = ctrl.add_damiao_motor(motor_can_id, motor_master_id, "4340P")
+
+#enable all motor
+#Enable all motors
+ctrl.enable_all()
+
+# change to MIT mode，timeout 1000ms
+#Switch to MIT mode
+motor.ensure_mode(Mode.MIT, timeout_ms=1000)
+
+#control mit
+#MIT control
+motor.send_mit(
+    pos=0.0,
+    vel=0.0,
+    kp=0.0,    
+    kd=0.0,    
+    tau=0.8   # 0.8Nm 
+)
+
+#run 5s
+#Run for 5s
+time.sleep(5)
+#disable all motor
+#Disable all motors
+ctrl.disable_all()
+ctrl.close_bus()
+ctrl.close()
+```
+
+5_pos_vel_ctrl.py is a control example for pos_vel mode.
+
+```Plain
+python 5_pos_vel_ctrl.py
+```
+
+pos is the target position for control, and vlim is used to limit the maximum absolute velocity during motion.
+
+> 🚧 Note:<br />The units of pos and vlim are rad and rad/s respectively, and the data type is float.
+
+```Python
+from motorbridge import Controller, Mode
+import time 
+
+motor_can_id = 0x01 
+motor_master_id = 0x11
+channel="/dev/ttyACM0"
+
+#get motor handle
+#Get motor control handle
+ctrl =Controller.from_dm_serial(channel,921600)
+motor = ctrl.add_damiao_motor(motor_can_id, motor_master_id, "4340P")
+
+#enable all motor
+#Enable all motors
+ctrl.enable_all()
+
+# change to POS-VEL mode，timeout 1000ms
+#Switch to position-velocity mode
+motor.ensure_mode(Mode.POS_VEL, timeout_ms=1000)
+
+#control pos_vel
+#Position-velocity mode control
+motor.send_pos_vel(
+    pos=2.0,    # target angle（rad）
+    vlim=1.5    # max vel（rad/s）
+)
+
+#run 5s
+#Run for 5 seconds
+time.sleep(5)
+
+#disable all motor
+#Disable all motors
+ctrl.disable_all()
+ctrl.close_bus()
+ctrl.close()
+```
+
+6_vel_ctrl.py is a control example for vel mode.
+
+```Plain
+python 6_vel_ctrl.py
+```
+
+```Python
+from motorbridge import Controller, Mode
+import time 
+
+motor_can_id = 0x01 
+motor_master_id = 0x11
+channel="/dev/ttyACM0"
+
+#get motor handle
+#Get motor control handle
+ctrl =Controller.from_dm_serial(channel,921600)
+motor = ctrl.add_damiao_motor(motor_can_id, motor_master_id, "4340P")
+
+#enable all motor
+#Enable all motors
+ctrl.enable_all()
+
+# change to VEL mode，timeout 1000ms
+#Switch to velocity mode
+motor.ensure_mode(Mode.VEL, 1000)
+
+#control vel
+#Velocity mode control
+motor.send_vel(vel=1.0)  # 1 rad/s
+
+#run 5s
+#Run for 5 seconds
+time.sleep(5)
+
+#disable all motor
+#Disable all motors
+ctrl.disable_all()
+ctrl.close_bus()
+ctrl.close()
+```
+
+Where vel is the target velocity for control.
+
+> 🚧 Note:<br />The unit of pos is rad/s, and the data type is float.
+
+7_force_pos.py is a control example for force_pos mode.
+
+```Plain
+python 7_force_pos.py
+```
+
+```Python
+from motorbridge import Controller, Mode
+import time 
+
+motor_can_id = 0x01 
+motor_master_id = 0x11
+channel="/dev/ttyACM0"
+
+#get motor handle
+#Get motor control handle
+ctrl =Controller.from_dm_serial(channel,921600)
+motor = ctrl.add_damiao_motor(motor_can_id, motor_master_id, "4340P")
+
+#enable all motor
+#Enable all motors
+ctrl.enable_all()
+
+# change to  force_pos mode，timeout 1000ms
+#Switch to force_pos mode
+motor.ensure_mode(Mode.FORCE_POS, 1000)
+
+#control force_pos
+#force_pos control
+motor.send_force_pos(
+    pos=0.5,    # target angle（rad）
+    vlim=1.0,   # max vel（rad/s）
+    ratio=0.3   # torque ratio（0.0 - 1.0）0 means no torque, 1 means full torque
+)
+
+#run 5s
+#Run for 5 seconds
+time.sleep(5)
+
+#disable all motor
+#Disable all motors
+ctrl.disable_all()
+ctrl.close_bus()
+ctrl.close()
+```
+
+pos is the target position for control, vlim is the velocity limit, and ratio represents the amount of torque used. When ratio is 0, it means no torque; when it is 1, it means full torque.
+
+- Get Motor State
+
+8_get_state.py is an example of getting the motor state.
+
+```Plain
+python 8_get_state.py 
+```
+
+```Python
+from motorbridge import Controller, Mode
+import time 
+
+motor_can_id = 0x01 
+motor_master_id = 0x11
+channel="/dev/ttyACM0"
+
+#get motor handle
+#Get motor control handle
+ctrl =Controller.from_dm_serial(channel,921600)
+motor = ctrl.add_damiao_motor(motor_can_id, motor_master_id, "4340P")
+
+#enable all motor
+#Enable all motors
+ctrl.enable_all()
+
+# change to pos_vel mode，timeout 1000ms
+#Switch to pos_vel mode
+motor.ensure_mode(Mode.POS_VEL, 1000)
+
+#record start time
+start = time.perf_counter()
+
+#control cycle
+dt = 0.01  # 10ms 
+
+#run 5s
+while time.perf_counter()- start /dev/null
+sudo ip link set can0 type can bitrate 1000000
+sudo ip link set can0 up
+```
+
+1. Open the following address in your browser
+
+```Plain
+https://motorbridge.github.io/motorbridge-studio/
+```
+
+1. Then click the Help option, copy the corresponding command according to your operating system and the driver board used, verify the IP address and port number, and press Enter in the terminal to run.
+
+![](https://feishu.cn/file/WLCobnmgoorTIzxIPd1crTUxnlg)
+
+1. Then click the Help option, copy the corresponding command according to your operating system and the driver board used, verify the IP address and port number, and press Enter in the terminal to run.
+
+- Linux platform enter the following command
+
+```Plain
+motorbridge-gateway -- --bind 127.0.0.1:9002 --transport socketcan --channel can0
+```
+
+- MAC platform enter the following command
+
+```Plain
+motorbridge-gateway -- --bind 127.0.0.1:9002 --transport socketcan --channel can0
+```
+
+- Windows enter the following command
+
+```Plain
+motorbridge-gateway -- --bind 127.0.0.1:9002 --transport socketcan --channel can0@1000000
+```
+
+1. After entering the above command, return to the webpage, click Connect. After successful connection, green 'Connected' text will appear in the upper right corner.
+
+![](https://feishu.cn/file/LxV7bR3jzob3KLxPOwVcJdsRnIg)
+
+1. After selecting the RS motor, click Scan RobStride motor
+
+![](https://feishu.cn/file/JgmgbwOFYoBmCLxMrgLcleVUncf)
+
+1. After successful scanning, the following card appears
+
+![](https://feishu.cn/file/C4JhbfpwqolxIxxri2pc9R1HnAg)
+
+1. On the right side are the motor-related parameters. Click the enable button in the lower left corner, and the motor light turns green. At this point, you can control the motor.
+
+![](https://feishu.cn/file/Rb2SbA0xyosyLgxLvQOcQHWYnUg)
+
+1. Drag the slider or enter the corresponding angle in the small box (unit is rad), then click Move, and the motor will rotate to the target angle.
+2. After clicking the Enable button, click Zero+Save to set the current position as the zero point.
+3. Set the motor ID. If the motor is used on reBot, can_id should be set to the corresponding joint number, and master_id is fixed.
+
+##### Python Code Control
+
+- Enable/Disable RS Motors
+
+1_enable_rs.py is a typical example of enabling/disabling RS motors.
+
+```Plain
+python 1_enable_rs.py
+```
+
+```Python
+
+#Enable specified motor, disable motor after 3 seconds
+from motorbridge import Controller, Mode
+```
+
+```Python
+import time
+motor_configs = {
+    1 : {
+        "can_id": 0x07,
+        "master_id": 0xfd, #fix
+        "model": "rs-00", #rs-06、rs-00
+    },
+}
+
+ctrl = Controller("can0")
+
+#add motor
+#Add motor
+motor={}
+for num,cfg in motor_configs.items():
+    motor[num] = ctrl.add_robstride_motor(cfg["can_id"], cfg["master_id"], cfg["model"])
+
+#enable all motor
+#Enable all motors
+ctrl.enable_all()
+
+# change to MIT mode，timeout 1000ms  
+#Switch to MIT mode, timeout 1000ms
+motor[1].ensure_mode(Mode.MIT, timeout_ms=1000)
+
+#control mit
+#Control MIT
+motor[1].send_mit(
+    pos=0.0,
+    vel=0.0,
+    kp=0.0,    
+    kd=0.0,    
+    tau=0.3  # 0.3Nm 
+    #0.3 Newton-meters
+)
+
+time.sleep(3)
+#disable all motor
+#Disable all motors
+ctrl.disable_all()
+```
+
+Phenomenon: After the DM motor is enabled, the motor light turns green. After 3 seconds, the DM motor is disabled and the motor light turns red.
+
+- Scan Motor ID
+
+2_scan_RSmotor.py is an example of scanning the CAN ID of RS motors.
+
+```Plain
+python 2_scan_RSmotor.py
+```
+
+```Python
+from motorbridge import Controller, Mode
+import time
+
+def scan_robstride_motors(start_can_id, end_can_id,channel="can0"):
+    found_motors=[]
+    for motor_can_id in range(start_can_id, end_can_id + 1):
+        ctrl =Controller(channel)
+
+        try:
+            motor = ctrl.add_robstride_motor(motor_can_id,0xfd, "rs-00")
+
+            try:
+                can_id, respond_id = motor.robstride_ping()
+                found_motors.append(can_id)
+                print(f"can_id={can_id:02X} respond_id={respond_id:02X}") #respond id is not master id
+                #Response ID is not master ID
+
+            except Exception:
+                # scan error
+                #Scan error
+                print(f"[no respond] no this motor_can_id=0x{motor_can_id:02X}")
+
+            finally:
+                motor.close()
+
+        except Exception as e:
+            print(f"[error] motor_can_id=0x{motor_can_id:02X}: {e}")
+        finally:
+            ctrl.close_bus()
+            ctrl.close()
+    print(f"\nfinish find {len(found_motors)} motor\n")
+    return found_motors
+
+if __name__ == "__main__" :
+    motors=scan_robstride_motors(1, 10,channel="can0")
+
+    print("\nfind motor config:")
+    for can_id in motors:
+        print(f"  can_id=0x{can_id:02X}")
+```
+
+The input of the main implementation function scan_robstride_motors is the CAN ID range and port. After running, the scanned CAN ID and its corresponding master ID will be displayed. This script can be used to check whether the CAN ID and the corresponding master ID are correct.
+
+- Set CAN ID and Corresponding Master ID
+
+3_set_id.py is an example of setting the CAN ID and master ID of RS motors.
+
+```Plain
+python 3_set_id.py
+```
+
+```Python
+from motorbridge import Controller
+from motorbridge import Controller, RID_MST_ID, RID_ESC_ID
+import time
+#set canID 
+#Set CAN ID
+def set_RSmotor_ID(old_can_id,new_can_id,channel="can0"):
+
+    ctrl =Controller(channel)
+
+    motor = ctrl.add_robstride_motor(old_can_id,0xfd, "rs-00")
+    try :
+        motor.robstride_set_device_id(new_can_id)
+        print(f"change to new id :{new_can_id}")
+    except Exception:
+        print("set id failed")
+
+    time.sleep(1)
+    ctrl.close_bus()
+    ctrl.close()
+
+if __name__== "__main__" :
+    old_can_id = 0x01
+    new_can_id = 0x01
+    set_RSmotor_ID(old_can_id,new_can_id,channel="can0")
+```
+
+The input of the main implementation function set_RSmotor_ID is the old CAN ID, the new CAN ID to be set, and the port.
+
+- Control Different Modes
+
+4_mit_ctrl.py is a control example for MIT mode. kp is the stiffness of the controller, kd is the damping of the controller, and tau is the feedforward torque.
+
+```Plain
+python 4_mit_ctrl.py 
+```
+
+```Python
+from motorbridge import Controller, Mode
+import time 
+
+motor_can_id = 0x01 
+motor_master_id = 0xfd
+channel="can0"
+
+#get motor handle
+#Get motor handle
+ctrl =Controller(channel)
+motor = ctrl.add_robstride_motor(motor_can_id, motor_master_id, "rs-00")
+
+#enable all motor
+#Enable all motors
+ctrl.enable_all()
+
+# change to MIT mode，timeout 1000ms
+#Switch to MIT mode, timeout 1000ms
+motor.ensure_mode(Mode.MIT, timeout_ms=1000)
+
+#control mit
+#Control MIT
+motor.send_mit(
+    pos=0.0,
+    vel=0.0,
+    kp=0.0,    
+    kd=0.0,    
+    tau=0.3   # 0.3Nm 
+    #0.3 Newton-meters
+)
+
+#run 3s
+time.sleep(3)
+#disable all motor
+#Disable all motors
+ctrl.disable_all()
+ctrl.close_bus()
+ctrl.close()
+```
+
+Phenomenon: The example only gives tau, so the motor will keep rotating. According to MIT mode, various control modes can be derived. For example, when kp=0 and kd is not 0, giving vel can achieve constant-speed rotation; when kp=0 and kd=0, giving tau can achieve given torque output.
+
+> 🚧 Note:
+>
+> 1. When only giving tau, do not give too large a tau. If tau is too large, the motor will rotate faster and faster to achieve the desired tau.
+> 2. When controlling position, kd cannot be set to 0, otherwise it will cause motor oscillation or even loss of control.
+> 3. The units of pos and vlim are rad and rad/s respectively, and the data type is float.
+
+5_pos_vel_ctrl.py is a control example for pos_vel mode.
+
+```Plain
+python 5_pos_vel_ctrl.py
+```
+
+```Python
+from motorbridge import Controller, Mode
+import time 
+
+motor_can_id = 0x01 
+motor_master_id = 0xfd
+channel="can0"
+
+#get motor handle
+#Get motor handle
+ctrl =Controller(channel)
+motor = ctrl.add_robstride_motor(motor_can_id, motor_master_id, "rs-00")
+
+#enable all motor
+#Enable all motors
+ctrl.enable_all()
+
+# change to POS-VEL mode，timeout 1000ms
+#Switch to position-velocity mode, timeout 1000ms
+motor.ensure_mode(Mode.POS_VEL, timeout_ms=1000)
+
+#control pos_vel
+#Control position-velocity
+
+motor.send_pos_vel(
+    pos=2.0,    # target angle（rad）
+    #Target angle (radians)
+    vlim=1.5    # max vel（rad/s）
+    #Maximum velocity (radians/second)
+)
+
+#run 5s
+#Run for 5 seconds
+time.sleep(5)
+
+#disable all motor
+#Disable all motors
+ctrl.disable_all()
+ctrl.close_bus()
+ctrl.close()
+```
+
+pos is the target position for control, and vlim is used to limit the maximum absolute velocity during motion.
+
+> 🚧 Note:
+>
+> 1. The units of pos and vlim are rad and rad/s respectively, and the data type is float.
+> 2. The pos_vel mode used here is the position-velocity mode (PP).
+
+6_vel_ctrl.py is a control example for vel mode.
+
+```Plain
+python 6_vel_ctrl.py
+```
+
+```Python
+from motorbridge import Controller, Mode
+import time 
+
+motor_can_id = 0x01 
+motor_master_id = 0xfd
+channel="can0"
+
+#get motor handle
+ctrl =Controller(channel)
+motor = ctrl.add_robstride_motor(motor_can_id, motor_master_id, "rs-00")
+
+#enable all motor
+#Enable all motors
+ctrl.enable_all()
+
+# change to POS-VEL mode，timeout 1000ms
+#Switch to position-velocity mode, timeout 1000ms
+motor.ensure_mode(Mode.POS_VEL, timeout_ms=1000)
+
+#control pos_vel
+#Control position-velocity
+
+motor.send_pos_vel(
+    pos=2.0,    # target angle（rad）
+    #Target angle (radians)
+    vlim=1.5    # max vel（rad/s）
+    #Maximum velocity (radians/second)
+)
+
+#run 5s
+#Run for 5 seconds
+time.sleep(5)
+
+#disable all motor
+#Disable all motors
+ctrl.disable_all()
+ctrl.close_bus()
+ctrl.close()
+```
+
+Where vel is the target velocity for control.
+
+> 🚧 Note:<br />The unit of pos is rad/s, and the data type is float.
+
+- Get Motor State
+
+7_get_state.py is an example of getting the motor state.
+
+```Plain
+python 7_get_state.py
+```
+
+````Python
+from motorbridge import Controller, Mode
+import time 
+
+motor_can_id = 0x01 
+motor_master_id = 0xfd
+channel="can0"
+
+#get motor handle
+ctrl =Controller(channel)
+motor = ctrl.add_robstride_motor(motor_can_id, motor_master_id, "rs-00")
+
+#enable all motor
+#Enable all motors
+ctrl.enable_all()
+
+# change to mit mode，timeout 1000ms
+#Switch to position-velocity mode, timeout 1000ms
+motor.ensure_mode(Mode.POS_VEL, 1000)
+
+#record start time
+#Record start time
+start = time.perf_counter()
+
+#control cycle
+#Control cycle
+dt = 0.01  # 10ms 
+#10 milliseconds
+
+#run 5s
+#Run for 5 seconds
+while time.perf_counter()- start  🚧
+> 1. If the environment is not installed, refer to section 7.1 for installation environment.
+> 2. The parameters of each joint controller of the Python SDK robotic arm need to be adjusted according to actual usage requirements. The current parameters can only satisfy scenarios with low precision requirements.
+
+Install required dependencies
+
+```Plain
+python3 -m pip install pyyaml motorbridge
+````
+
+Pull example code
+
+```Plain
+git clone https://github.com/hopcan/rebotArm_ctrl.git
+```
+
+> 🚧 The Python examples for controlling reBot DM are in rebotArm_ctrl/example/rebotDM<br />The configuration file for the reBot DM robotic arm is in rebotArm_ctrl/config<br />The Python examples for controlling reBot RS are in rebotArm_ctrl/example/rebotRS<br />The configuration file for the reBot RS robotic arm is in rebotArm_ctrl/config
+
+#### 8.1 Modify Parameters and Switch Modes
+
+The recommended control mode for reBot DM is POS_VEL. Switching the robotic arm joint control mode and configuring parameters can both be achieved by modifying the corresponding parameters in rebotDM.yaml under ebotArm_ctrl/config.
+
+For example:
+
+```YAML
+  - name: Shoulder Pan
+    motor_can_id: 1   
+    MIT:
+        kp: 10.0
+        kd: 1.0
+    POS_VEL:
+        vel_kp: 0.0125
+        vel_ki: 0.004
+        pos_kp: 150.0
+        pos_ki: 0.5
+        vlim: 5.0
+    posmax: 2.6
+    posmin: -2.6
+    use_mode: POS_VEL
+```
+
+MIT's kp and kd, POS_VEL's vel_kp, vel_ki, pos_kp, pos_ki, and vlim are the parameters of the corresponding mode, which can be changed according to the control effect of the robotic arm. use_mode can switch the control mode of the corresponding joint, and can be changed to MIT or POS_VEL.
+
+#### 8.2 Connect/Disconnect the Robotic Arm (Using Context Manager)
+
+Refer to example/rebotDM/1_rebotDM_connect.py or example/rebotRS/1_rebotRS_connect.py
+
+1. First create the bus controller
+
+> 🚧 Note:
+>
+> 1. Check whether the port exists.
+> 2. Port permissions must be granted before the program runs.
+
+reBot DM uses a serial port, created as follows
+
+```Plain
+channel = "/dev/ttyACM0"  
+ctrl =Controller.from_dm_serial(channel, 921600)
+```
+
+reBot RS uses PCAN
+
+```Plain
+channel = "can0"  
+ctrl =Controller(channel)
+```
+
+1. Implemented through a safe context manager
+
+```Python
+with reBotArm_handle(ctrl,"rebotDM") as handle:
+
+with reBotArm_handle(ctrl,"rebotRS") as handle:
+```
+
+Where reBotArm_handle also supports the config_path parameter. This parameter can specify the imported configuration file, and the default robotic arm configuration file will no longer be imported. You can refer to the configuration files in config to write your own configuration file.
+
+```Python
+with reBotArm_handle(ctrl,"rebotDM",config_path = "absolute path of yaml") as handle:
+
+with reBotArm_handle(ctrl,"rebotRS",config_path = "absolute path of yaml") as handle:
+```
+
+> 📣 Core implementation:
+>
+> 1. The \_\_enter\_\_ function will call the connect function to automatically connect to the robotic arm. If the connection fails, the corresponding log will be output.
+> 2. The \_\_exit\_\_ function will call the disconnect function to automatically disconnect from the robotic arm when the program exits.
+> 3. Connecting to the robotic arm will add motors to the bus controller, check motor communication on power-up, verify whether motor CAN ID and master ID are valid, verify whether the configuration file is valid, and change the motor control mode to the target control mode.
+> 4. Disconnecting from the robotic arm will first automatically restore the initial state, then disable.
+> 5. After using Ctrl+C to exit the program, wait a few seconds. Do not keep entering Ctrl+C; you need to wait for the robotic arm to automatically return to its home position and then disable.
+
+If you do not want to use the context manager, you can directly call the connect function and disconnect function to connect/disconnect the robotic arm.
+
+#### 8.3 Control Robotic Arm Motion
+
+Refer to example/rebotDM/3_rebotDM_move_joint.py or example/rebotRS/3_rebotRS_move_joint.py
+
+```Python
+ while True:
+            handle.move_to_joint_positions([0,0,0,0.5,0.5,0, -1])
+            for motor_id in list(range(1,8)):
+                print(f"motor {motor_id}")
+                print(f"pos: {handle.motor_state[motor_id].pos:.3f} rad")
+                print(f"vel: {handle.motor_state[motor_id].vel:.3f} rad/s")
+                print(f"torque: {handle.motor_state[motor_id].torq:.3f} Nm\n")
+            time.sleep(0.002)
+```
+
+> 📣 handle.motor_state is a dictionary containing the state information of all joints. The reading method is as above.
+
+#### 8.4 Set Zero Point for the Robotic Arm
+
+Refer to example/rebotDM/2_rebotDM_set_zero.py or example/rebotRS/2_rebotRS_set_zero.py
+
+```Plain
+with reBotArm_handle(ctrl,"rebotRS") as handle:
+    handle.set_zero_position()
+
+with reBotArm_handle(ctrl,"rebotDM") as handle:
+    handle.set_zero_position()
+```
+
+> 📣 Calling the set_zero_position function through the robotic arm control class can set the corresponding joint ID for all joints of the robotic arm.
+
+#### 8.5 Update Robotic Arm Joint State
+
+Refer to example/rebotDM/5_rebotDM_request_joints_data.py or example/rebotRS/5_rebotRS_request_joints_data.py
+
+```Python
+    with reBotArm_handle(ctrl,"rebotDM") as handle:
+        if handle.is_connected:
+            print("Controller is connected and ready.")
+            print("Motor Use Modes:", handle.use_mode)
+        else:
+            print("Controller failed to connect.")
+        handle.ctrl.disable_all()
+        while True:
+            print(handle.get_joints_state())
+            time.sleep(0.002)
+
+    with reBotArm_handle(ctrl,"rebotRS") as handle:
+        if handle.is_connected:
+            print("Controller is connected and ready.")
+            print("Motor Use Modes:", handle.use_mode)
+        else:
+            print("Controller failed to connect.")
+        handle.ctrl.disable_all()
+        while True:
+            print(handle.get_joints_state())
+            time.sleep(0.002)
+```
+
+> 📣 `get_joints_state()`: Actively updates the state of each joint of the robotic arm and returns the current joint angles.
+
+---
