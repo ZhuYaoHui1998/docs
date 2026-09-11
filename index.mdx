@@ -3,11 +3,14 @@ title: "Introduction"
 description: "Welcome to your project"
 ---
 
-> 😀 This course was written and shared for free by the engineers of the Seeed robotics tngs to Seeed Studio (Shenzhen) Co., Ltd. We will protect our rights against any unauthorized copyright infringement.
+> 😀
+ This course was written and shared for free by the engineers of the Seeed robotics tngs to Seeed Studio (Shenzhen) Co., Ltd. We will protect our rights against any unauthorized copyright infringement.
 
-> 🤖 **Cross-disciplinary robotics learners, new graduate students building technical reserves, job seekers expanding their knowledge, and makers wanting to accelerate their own projects — no need to scavenge materials everywhere! This permanently free course, carefully crafted by the SeeedStudio AI Robotics team, pairs with the 100% open-source, commercially usable, and reproducible reBot robotic arm. Finish this course and you'll be the next expert! This course is completely free. If you'd like to encourage our efforts, please star our open-source robotic arm on GitHub:** [**https://github.com/Seeed-Projects/reBot-DevArm/**](https://github.com/Seeed-Projects/reBot-DevArm/) **⭐, and help more people discover this course!**<br />**If you are already an expert, you can directly reference our wiki to start running examples:[https://wiki.seeedstudio.com/robotics_page/](https://wiki.seeedstudio.com/robotics_page/)**<br />Hardware drawings and BOM downloads for the robotic arm can be found on our GitHub: [**https://github.com/Seeed-Projects/reBot-DevArm/**](https://github.com/Seeed-Projects/reBot-DevArm/).
+> 🤖
+ **Cross-disciplinary robotics learners, new graduate students building technical reserves, job seekers expanding their knowledge, and makers wanting to accelerate their own projects — no need to scavenge materials everywhere! This permanently free course, carefully crafted by the SeeedStudio AI Robotics team, pairs with the 100% open-source, commercially usable, and reproducible reBot robotic arm. Finish this course and you'll be the next expert! This course is completely free. If you'd like to encourage our efforts, please star our open-source robotic arm on GitHub:** [**https://github.com/Seeed-Projects/reBot-DevArm/**](https://github.com/Seeed-Projects/reBot-DevArm/) **⭐, and help more people discover this course!**<br />**If you are already an expert, you can directly reference our wiki to start running examples:[https://wiki.seeedstudio.com/robotics_page/](https://wiki.seeedstudio.com/robotics_page/)**<br />Hardware drawings and BOM downloads for the robotic arm can be found on our GitHub: [**https://github.com/Seeed-Projects/reBot-DevArm/**](https://github.com/Seeed-Projects/reBot-DevArm/).
 
-> 💡 This course does not delve deeply into mathematical functions or low-level principles. It uses popular science and examples to help you quickly understand low-level control, traditional algorithms, and VLA algorithms in robotic arm embodied intelligence. Through a combination of theory and practice, you will comprehensively learn cutting-edge knowledge of robotic arms. If you want to go deeper into each field, many excellent platforms and instructors offer more advanced course content. Feel free to pursue targeted advanced study.
+> 💡
+ This course does not delve deeply into mathematical functions or low-level principles. It uses popular science and examples to help you quickly understand low-level control, traditional algorithms, and VLA algorithms in robotic arm embodied intelligence. Through a combination of theory and practice, you will comprehensively learn cutting-edge knowledge of robotic arms. If you want to go deeper into each field, many excellent platforms and instructors offer more advanced course content. Feel free to pursue targeted advanced study.
 
 # Community Groups:
 
@@ -545,7 +548,8 @@ MIT mode can achieve different control methods according to different parameter 
 
 Then directly set T_ff to control the motor to output the specified torque.
 
-> 🚧 Note: When controlling position, kd cannot be set to 0, otherwise it will cause motor oscillation or even loss of control.
+> 🚧
+ Note: When controlling position, kd cannot be set to 0, otherwise it will cause motor oscillation or even loss of control.
 
 ##### Position-Velocity Mode
 
@@ -564,7 +568,8 @@ The final output torque of the motor is mainly determined jointly by the followi
 
 If the position cascade mode uses the control parameters recommended by the debugging assistant, it can achieve good control accuracy, and the control process is relatively compliant, but the response time is relatively long. In addition to v_des, configurable related parameters also include acceleration/deceleration settings. If additional oscillation occurs during the control process, the acceleration/deceleration can be increased.
 
-> 🚧 Note: The units of p_des and v_des are rad and rad/s respectively, the data type is float, and the damping factor must be set to a non-zero positive number. Refer to the notes for velocity mode.
+> 🚧
+ Note: The units of p_des and v_des are rad and rad/s respectively, the data type is float, and the damping factor must be set to a non-zero positive number. Refer to the notes for velocity mode.
 
 ##### Velocity Mode
 
@@ -744,7 +749,8 @@ The bus consists of two signal lines, CAN_L and CAN_H. CAN transmits differentia
 | Overload Frame | Requests delay |
 | Inter Frame Space | Separates consecutive frames |
 
-> 📣 Since DM motors use CAN 2.0 standard data frames and RS motors use CAN 2.0 extended data frame format, only these two data frame formats are introduced below. It is recommended to read the following introduction against the protocol section in the motor's data sheet.
+> 📣
+ Since DM motors use CAN 2.0 standard data frames and RS motors use CAN 2.0 extended data frame format, only these two data frame formats are introduced below. It is recommended to read the following introduction against the protocol section in the motor's data sheet.
 
 ##### 5.2.1 reBot DM Standard Data Frame (11 bytes total)
 
@@ -880,7 +886,8 @@ Reference documentation for detailed usage: [https://docs.linuxkernel.org.cn/net
 
 1. Connect USB2CAN to the computer via a Type-C data cable
 
-> 📣 Note:
+> 📣
+ Note:
 >
 > 1. Motor 1 and motor 2 must be connected to each other
 
@@ -908,7 +915,8 @@ Reference documentation for detailed usage: [https://docs.linuxkernel.org.cn/net
 
 1. Connect CANable to the computer
 
-> 📣 Note:
+> 📣
+ Note:
 >
 > 1. Motor 1 and motor 2 must be connected to each other
 
@@ -1084,7 +1092,8 @@ motorbridge-gateway -- \
   motorbridge-gateway -- --bind 127.0.0.1:9002 --vendor damiao --transport dm-serial --serial-port COM3 --serial-baud 921600 --dt-ms 20
   ```
 
-> 🚧 Note: The port number must be the correct port, and permissions must be granted before binding.
+> 🚧
+ Note: The port number must be the correct port, and permissions must be granted before binding.
 
 1. After entering the above command, return to the webpage, click Connect. After successful connection, green 'Connected' text will appear in the upper right corner.
 
@@ -1106,13 +1115,15 @@ motorbridge-gateway -- \
 2. After clicking the Enable button, click Zero+Save to set the current position as the zero point.
 3. Set the motor ID. If the motor is used on reBot, can_id should be set to the corresponding joint number, and master_id should be set to 0x10+can_id.
 
-> 🚧 For example, if can_id is 1, then master_id should be 0x11, that is, 16+1=17. Then click Set CAN_ID.
+> 🚧
+ For example, if can_id is 1, then master_id should be 0x11, that is, 16+1=17. Then click Set CAN_ID.
 
 ![](https://feishu.cn/file/X2RIbUYuNoUoIzx3pAYcgZv3nAh)
 
 ##### Python Code Control
 
-> 🚧 If the environment is not installed, please first refer to the installation environment in section 7.1. The DM motor-related examples are all implemented through Damiao's serial port.
+> 🚧
+ If the environment is not installed, please first refer to the installation environment in section 7.1. The DM motor-related examples are all implemented through Damiao's serial port.
 
 First, pull the example code
 
@@ -1281,7 +1292,8 @@ python 4_mit_ctrl.py
 
 Phenomenon: The example only gives tau, so the motor will keep rotating. According to MIT mode, various control modes can be derived. For example, when kp=0 and kd is not 0, giving vel can achieve constant-speed rotation; when kp=0 and kd=0, giving tau can achieve given torque output.
 
-> 🚧 Note:
+> 🚧
+ Note:
 >
 > 1. When only giving tau, do not give too large a tau. If tau is too large, the motor will rotate faster and faster to achieve the desired tau.
 > 2. When controlling position, kd cannot be set to 0, otherwise it will cause motor oscillation or even loss of control.
@@ -1336,7 +1348,8 @@ python 5_pos_vel_ctrl.py
 
 pos is the target position for control, and vlim is used to limit the maximum absolute velocity during motion.
 
-> 🚧 Note:<br />The units of pos and vlim are rad and rad/s respectively, and the data type is float.
+> 🚧
+ Note:<br />The units of pos and vlim are rad and rad/s respectively, and the data type is float.
 
 ```Python
 from motorbridge import Controller, Mode
@@ -1421,7 +1434,8 @@ ctrl.close()
 
 Where vel is the target velocity for control.
 
-> 🚧 Note:<br />The unit of pos is rad/s, and the data type is float.
+> 🚧
+ Note:<br />The unit of pos is rad/s, and the data type is float.
 
 7_force_pos.py is a control example for force_pos mode.
 
@@ -1763,7 +1777,8 @@ ctrl.close()
 
 Phenomenon: The example only gives tau, so the motor will keep rotating. According to MIT mode, various control modes can be derived. For example, when kp=0 and kd is not 0, giving vel can achieve constant-speed rotation; when kp=0 and kd=0, giving tau can achieve given torque output.
 
-> 🚧 Note:
+> 🚧
+ Note:
 >
 > 1. When only giving tau, do not give too large a tau. If tau is too large, the motor will rotate faster and faster to achieve the desired tau.
 > 2. When controlling position, kd cannot be set to 0, otherwise it will cause motor oscillation or even loss of control.
@@ -1819,7 +1834,8 @@ ctrl.close()
 
 pos is the target position for control, and vlim is used to limit the maximum absolute velocity during motion.
 
-> 🚧 Note:
+> 🚧
+ Note:
 >
 > 1. The units of pos and vlim are rad and rad/s respectively, and the data type is float.
 > 2. The pos_vel mode used here is the position-velocity mode (PP).
@@ -1873,7 +1889,8 @@ ctrl.close()
 
 Where vel is the target velocity for control.
 
-> 🚧 Note:<br />The unit of pos is rad/s, and the data type is float.
+> 🚧
+ Note:<br />The unit of pos is rad/s, and the data type is float.
 
 - Get Motor State
 
@@ -1930,7 +1947,8 @@ Pull example code
 git clone https://github.com/hopcan/rebotArm_ctrl.git
 ```
 
-> 🚧 The Python examples for controlling reBot DM are in rebotArm_ctrl/example/rebotDM<br />The configuration file for the reBot DM robotic arm is in rebotArm_ctrl/config<br />The Python examples for controlling reBot RS are in rebotArm_ctrl/example/rebotRS<br />The configuration file for the reBot RS robotic arm is in rebotArm_ctrl/config
+> 🚧
+ The Python examples for controlling reBot DM are in rebotArm_ctrl/example/rebotDM<br />The configuration file for the reBot DM robotic arm is in rebotArm_ctrl/config<br />The Python examples for controlling reBot RS are in rebotArm_ctrl/example/rebotRS<br />The configuration file for the reBot RS robotic arm is in rebotArm_ctrl/config
 
 #### 8.1 Modify Parameters and Switch Modes
 
@@ -1963,7 +1981,8 @@ Refer to example/rebotDM/1_rebotDM_connect.py or example/rebotRS/1_rebotRS_conne
 
 1. First create the bus controller
 
-> 🚧 Note:
+> 🚧
+ Note:
 >
 > 1. Check whether the port exists.
 > 2. Port permissions must be granted before the program runs.
@@ -1998,7 +2017,8 @@ with reBotArm_handle(ctrl,"rebotDM",config_path = "absolute path of yaml") as ha
 with reBotArm_handle(ctrl,"rebotRS",config_path = "absolute path of yaml") as handle:
 ```
 
-> 📣 Core implementation:
+> 📣
+ Core implementation:
 >
 > 1. The \_\_enter\_\_ function will call the connect function to automatically connect to the robotic arm. If the connection fails, the corresponding log will be output.
 > 2. The \_\_exit\_\_ function will call the disconnect function to automatically disconnect from the robotic arm when the program exits.
@@ -2023,7 +2043,8 @@ Refer to example/rebotDM/3_rebotDM_move_joint.py or example/rebotRS/3_rebotRS_mo
             time.sleep(0.002)
 ```
 
-> 📣 handle.motor_state is a dictionary containing the state information of all joints. The reading method is as above.
+> 📣
+ handle.motor_state is a dictionary containing the state information of all joints. The reading method is as above.
 
 #### 8.4 Set Zero Point for the Robotic Arm
 
@@ -2037,7 +2058,8 @@ with reBotArm_handle(ctrl,"rebotDM") as handle:
     handle.set_zero_position()
 ```
 
-> 📣 Calling the set_zero_position function through the robotic arm control class can set the corresponding joint ID for all joints of the robotic arm.
+> 📣
+ Calling the set_zero_position function through the robotic arm control class can set the corresponding joint ID for all joints of the robotic arm.
 
 #### 8.5 Update Robotic Arm Joint State
 
@@ -2067,6 +2089,7 @@ Refer to example/rebotDM/5_rebotDM_request_joints_data.py or example/rebotRS/5_r
             time.sleep(0.002)
 ```
 
-> 📣 `get_joints_state()`: Actively updates the state of each joint of the robotic arm and returns the current joint angles.
+> 📣
+ `get_joints_state()`: Actively updates the state of each joint of the robotic arm and returns the current joint angles.
 
 ---
